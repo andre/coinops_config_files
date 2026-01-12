@@ -1,0 +1,114 @@
+class MixTape < ConfigBase
+  DESCRIPTION = "What list of songs to play during attract mode. All tracks are selectively curated by the CoinOps team!"
+  OPTIONS = {
+    default: "Africa, Eye of the Tiger, Man in the Mirror",
+    glam: "Here I Go Again, Living on a Prayer, Rocket",
+    beats: "Be My Lover, Stike it Up, Rythm is a Dancer",
+    "80s": "Careless Whisper, Jessie's Girl, Take on Me"
+  }
+  DEFAULT = "default"
+  CATEGORY = "Audio"
+
+  # TODO: this could be made much tighter by just naming the folders consistently with the option keys, or by taking input the same as the folder names
+  # Or by reading out of the music/ directory for the available values ...
+  def set(val)
+    case val
+    when "default"
+      set_conf "settings.conf", %q[musicPlayer.folder = .\music\MixTape (ARISE)]
+    when "glam"
+      set_conf "settings.conf", %q[musicPlayer.folder = .\music\MixTAPE (Glam Rock)]
+    when "beats"
+      set_conf "settings.conf", %q[musicPlayer.folder = .\music\MixTAPE (Beats)]
+    when "80s"
+      set_conf "settings.conf", %q[musicPlayer.folder = .\music\MixTAPE (The 80s)]
+    end
+  end
+
+  def status
+    val = get_conf("settings.conf", "musicPlayer.folder")
+    if val.include?("ARISE")
+      "default"
+    elsif val.include?("Glam Rock")
+      "glam"
+    elsif val.include?("Beats")
+      "beats"
+    elsif val.include?("The 80s")
+      "80s"
+    else
+      "unknown"
+    end
+  end
+end
+
+class MusicPlayer < ConfigBase
+  DESCRIPTION = "When do you want the Mixtape music to play? It can play in the game selection menu, during gameplay, both or neither."
+  OPTIONS = {
+    menu: "music is played in the game selection menu only.",
+    game: "music is played during gameplay only.",
+    both: "Music plays while in the menu, and continues to play when you launch a game.",
+    none: "No music is played at any time."
+  }
+  DEFAULT = "menu"
+  CATEGORY = "Audio"
+
+  def set(val)
+    case val
+    when "menu"
+      set_conf "settings.conf", '
+            musicPlayer.enabled = true
+            musicPlayer.playInGame = false'
+    when "game"
+      set_conf "settings.conf", '"
+            musicPlayer.enabled = false
+            musicPlayer.playInGame = true
+            musicPlayer.playInGameVol = 100'
+    when "both"
+      set_conf "settings.conf", '
+            musicPlayer.enabled = true
+            musicPlayer.playInGame = true
+            musicPlayer.playInGameVol = 100'
+    when "none"
+      set_conf "settings.conf", '
+            musicPlayer.enabled = false
+            musicPlayer.playInGame = false'
+    end
+  end
+
+  def status
+    enabled = get_conf("settings.conf", "musicPlayer.enabled") == "true"
+    play_in_game = get_conf("settings.conf", "musicPlayer.playInGame") == "true"
+
+    if enabled && !play_in_game
+      "menu"
+    elsif !enabled && play_in_game
+      "game"
+    elsif enabled && play_in_game
+      "both"
+    else
+      "none"
+    end
+  end
+end
+
+class MenuGameSounds < ConfigBase
+  DESCRIPTION = "As the game menu shows previews of each game, do you want to hear the game sounds too? This can be enabled along with the Mixtape music in the menu (in fact that's the default)."
+  OPTIONS = {
+    enabled: "You will hear sounds from the game previews as you scroll through the game list, and as the system sits idle.",
+    disabled: "You will not hear any game sounds during the game previews."
+  }
+  DEFAULT = "enabled"
+  CATEGORY = "Audio"
+
+  def set(val)
+    case val
+    when "enabled"
+      set_conf "settings.conf", "MuteVideo = no"
+    when "disabled"
+      set_conf "settings.conf", "MuteVideo = yes"
+    end
+  end
+
+  def status
+    ((get_conf("settings.conf", "MuteVideo") || "").downcase == "no") ? "enabled" : "disabled"
+  end
+end
