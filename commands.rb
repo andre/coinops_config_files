@@ -167,7 +167,7 @@ class Commands < CommandBase
     end
   end
 
-  def reset_avorites
+  def reset_favorites
     %w[Arcades Arcader Arcade Arcade34 Arcade94 Arcade248 Lightgun].each do |name|
       src = "collections/#{name}/favoritesbackup.txt"
       dest = "collections/#{name}/playlists/favorites.txt"

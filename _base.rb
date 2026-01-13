@@ -124,19 +124,11 @@ class ConfigBase
   end
 
   def self.default
-    const_defined?(:DEFAULT) ? const_get(:DEFAULT) : "NONE"
+    const_defined?(:DEFAULT) ? const_get(:DEFAULT) : ""
   end
 
   def default
     self.class.default
-  end
-
-  def self.category
-    const_defined?(:CATEGORY) ? const_get(:CATEGORY) : "Uncategorized"
-  end
-
-  def category
-    self.class.category
   end
 
   def self.options

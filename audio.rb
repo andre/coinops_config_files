@@ -1,5 +1,5 @@
 class MixTape < ConfigBase
-  DESCRIPTION = "What list of songs to play during attract mode. All tracks are selectively curated by the CoinOps team!"
+  DESCRIPTION = "What list of songs to play during attract mode. All tracks are curated by the CoinOps team!"
   OPTIONS = {
     default: "Africa, Eye of the Tiger, Man in the Mirror",
     glam: "Here I Go Again, Living on a Prayer, Rocket",
