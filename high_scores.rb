@@ -17,7 +17,6 @@ class HighScores < ConfigBase
     no_scores_persist_on_load: "No high scores shown, persists at game load."
   }
   DEFAULT = "disabled"
-  CATEGORY = "Look & Feel"
 
   LAYOUTS = {
     "disabled" => {layout: "layouts/Arcades/layout - 4 None.xml", controls: true},

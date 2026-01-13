@@ -7,7 +7,6 @@ class MixTape < ConfigBase
     "80s": "Careless Whisper, Jessie's Girl, Take on Me"
   }
   DEFAULT = "default"
-  CATEGORY = "Audio"
 
   # TODO: this could be made much tighter by just naming the folders consistently with the option keys, or by taking input the same as the folder names
   # Or by reading out of the music/ directory for the available values ...
@@ -49,7 +48,6 @@ class MusicPlayer < ConfigBase
     none: "No music is played at any time."
   }
   DEFAULT = "menu"
-  CATEGORY = "Audio"
 
   def set(val)
     case val
@@ -97,7 +95,6 @@ class MenuGameSounds < ConfigBase
     disabled: "You will not hear any game sounds during the game previews."
   }
   DEFAULT = "enabled"
-  CATEGORY = "Audio"
 
   def set(val)
     case val

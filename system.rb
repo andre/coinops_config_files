@@ -5,7 +5,6 @@ class SingleMonitor < ConfigBase
     disabled: "CoinOps will use multiple connected monitors if available. Secondary monitors will be taken over by CoinOps when running."
   }
   DEFAULT = "disabled"
-  CATEGORY = "System"
 
   def set(val)
     case val
@@ -28,7 +27,6 @@ class ZeroDelayEncoder < ConfigBase
     disabled: "Works with kinds of controller interfaces, like PactoTech, Ipac, and most XInput controllers."
   }
   DEFAULT = "disabled"
-  CATEGORY = "System"
 
   def set(val)
     case val
@@ -56,7 +54,6 @@ class MenuHardwareAcceleration < ConfigBase
     disabled: "Turn off hardware acceleration."
   }
   DEFAULT = "disabled"
-  CATEGORY = "System"
 
   def set(val)
     case val
@@ -80,7 +77,6 @@ class MenuFPS < ConfigBase
     "120": "Run the menu at 120 FPS."
   }
   DEFAULT = "120"
-  CATEGORY = "System"
 
   def set(val)
     set_conf "settings.conf", "fps = #{val}"
@@ -98,7 +94,6 @@ class MenuFPSIdle < ConfigBase
     "60": "Limit idle frame rate to 60 FPS."
   }
   DEFAULT = "60"
-  CATEGORY = "System"
 
   def set(val)
     set_conf "settings.conf", "fpsIdle = #{val}"
@@ -117,7 +112,6 @@ class VideoRendering < ConfigBase
     opengl: "Use the legacy renderer from the Direct3D/GL profile."
   }
   DEFAULT = "direct3d11"
-  CATEGORY = "System"
 
   def set(val)
     set_conf "settings.conf", "SDLRenderDriver = #{val}"

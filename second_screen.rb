@@ -2,7 +2,6 @@ class SecondScreenControlsOverlay < ConfigBase
   DESCRIPTION = "Toggle second screen controls overlay."
   OPTIONS = {enabled: "Enable overlay.", disabled: "Disable overlay."}
   DEFAULT = "disabled"
-  CATEGORY = "Second Screen"
 
   def set(val)
     case val
@@ -30,7 +29,6 @@ class SecondScreenMetadata < ConfigBase
     disabled: "Disable metadata overlay."
   }
   DEFAULT = "disabled"
-  CATEGORY = "Second Screen"
 
   def set(val)
     case val
@@ -60,7 +58,6 @@ class SecondScreenTimeDisplay < ConfigBase
     disabled: "Do not show the time or date."
   }
   DEFAULT = "disabled"
-  CATEGORY = "Second Screen"
 
   def set(val)
     case val

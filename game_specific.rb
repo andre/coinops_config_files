@@ -5,7 +5,6 @@ class LaserDiscGameArrows < ConfigBase
     disabled: "Don't show the arrows (makes games harder, but more authentic to the original experience)."
   }
   DEFAULT = "enabled"
-  CATEGORY = "Game-Specific"
 
   def set(val)
     case val
@@ -40,7 +39,6 @@ class CPS2MarvelRoms < ConfigBase
     boss: "Use the boss-hack CPS2 Marvel ROMs."
   }
   DEFAULT = "boss"
-  CATEGORY = "Game-Specific"
 
   def set(val)
     case val
@@ -65,7 +63,6 @@ class PlayersTwoFour < ConfigBase
     "4p": "Use 4-player versions of these specific games. Only use if you have enough controllers."
   }
   DEFAULT = "2p"
-  CATEGORY = "Game-Specific"
 
   def set(val)
     case val

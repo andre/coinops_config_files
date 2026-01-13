@@ -18,7 +18,6 @@ class MainScreenTheme < ConfigBase
     crossfade_gameplay: "Crossfade gameplay theme."
   }
   DEFAULT = "wheel"
-  CATEGORY = "Look & Feel"
 
   HORIZONAL_CONF = <<~EOS
     up = Keypad 8,Up,joyHat0Up,joyAxis1-,joyAxis4+
@@ -168,7 +167,6 @@ class SecondScreenTheme < ConfigBase
     :blank => "Blank second screen."
   }
   DEFAULT = "blank"
-  CATEGORY = "Second Screen"
 
   LAYOUTS = {
     "animated_swipe_16x9_fire" => {layout: "layouts/Arcades/layout 2nd animated screen - Animated 16x9.xml", animate: true},

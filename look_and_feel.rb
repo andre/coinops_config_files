@@ -5,7 +5,6 @@ class AttractModeJoystick < ConfigBase
     disabled: "Disable the animated joystick graphic"
   }
   DEFAULT = "disabled"
-  CATEGORY = "Look & Feel"
 
   def set(val)
     if val == "enabled"
@@ -28,7 +27,6 @@ class StartPosition < ConfigBase
     consistent: "Always starts on the same game. Which game that is depends on how you're starting CoinOps (with or without playlists, consoles enabled, etc). With this setting, you can also go into settings.conf and specify a particular starting playlist."
   }
   DEFAULT = "random"
-  CATEGORY = "Look & Feel"
 
   def set(val)
     case val
@@ -55,7 +53,6 @@ class AttractModeAutoscroll < ConfigBase
     disabled: "Do not auto-scroll to a new game"
   }
   DEFAULT = "90"
-  CATEGORY = "Look & Feel"
 
   def set(val)
     case val
@@ -133,7 +130,6 @@ class GameMetadataDisplay < ConfigBase
     all_bottom: "Full metadata (manufacturer, year, control type, # players) displayed at the bottom right of the game menu."
   }
   DEFAULT = "some"
-  CATEGORY = "Look & Feel"
 
   LAYOUTS = {
     "some" => "layouts/Arcades/layout - 6_0.xml",
@@ -172,7 +168,6 @@ class TimeAndDateDisplay < ConfigBase
     disabled: "Do not show the time or date."
   }
   DEFAULT = "datetime"
-  CATEGORY = "Look & Feel"
   @@target = "layouts/Arcades/layout - 5.xml"
 
   def set(val)
@@ -208,7 +203,6 @@ class AttractModeDim < ConfigBase
     disabled: "The screen will stay at full brightness when the system is idle."
   }
   DEFAULT = "disabled"
-  CATEGORY = "Look & Feel"
 
   @@target = "layouts/Arcades/images/attract.png"
 
@@ -237,7 +231,6 @@ class WallThemesVideos < ConfigBase
     attract: "Use attract-mode variants of wall themes."
   }
   DEFAULT = "gameplay"
-  CATEGORY = "Look & Feel"
 
   def set(val)
     case val
@@ -263,7 +256,6 @@ class BezelSwitcher < ConfigBase
     disabled: "You can't switch bezels in-game. You can still select bezels here."
   }
   DEFAULT = "gamepad"
-  CATEGORY = "Look & Feel"
 
   def set(val)
     case val
@@ -323,7 +315,6 @@ class ScreenGlass < ConfigBase
     sharp: "Reflective glass with a sharp reflection."
   }
   DEFAULT = "disabled"
-  CATEGORY = "Look & Feel"
 
   # These commented out ones are referenced in the BAT, but the directories don't exist in this build
   BEZEL_PATHS = [
@@ -382,7 +373,6 @@ class Scanlines < ConfigBase
     disabled: "Disable scanline shaders (LCD-style)."
   }
   DEFAULT = "normal"
-  CATEGORY = "Look & Feel"
 
   def set(val)
     case val
@@ -442,7 +432,6 @@ class BezelArt < ConfigBase
     cropped: "The game screen is maximized, so less of the bezel is visible. The bezel is also slightly darker in this variation, since emphasis is on the game itself."
   }
   DEFAULT = "full"
-  CATEGORY = "Look & Feel"
 
   def set(val)
     case val
@@ -480,7 +469,6 @@ class BezelReflectivity < ConfigBase
     disabled: "No reflection is visible."
   }
   DEFAULT = "disabled"
-  CATEGORY = "Look & Feel"
 
   def set(val)
     case val

@@ -1,4 +1,3 @@
-
 class ControllerType < ConfigBase
   DESCRIPTION = "What kind of controller are you using? 'Arcade' is for cabinets with an arcade joystick and buttons. 'Gamepad' is for handheld controllers like Xbox or 8Bitdo."
   OPTIONS = {
@@ -6,7 +5,6 @@ class ControllerType < ConfigBase
     gamepad: "For handheld controllers like Xbox or 8Bitdo."
   }
   DEFAULT = "gamepad"
-  CATEGORY = "Controls"
 
   SAMPLE_CFG = "emulators/mame/cfg/dstlk.cfg"
 
@@ -37,7 +35,6 @@ class QuitCoinops < ConfigBase
     kb_or_gamepad: "You can exit CoinOps with 'escape' on a keyboard, or by pressing Start + Select on your controller."
   }
   DEFAULT = "kb_or_gamepad"
-  CATEGORY = "Controls"
 
   def set(val)
     case val
