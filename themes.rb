@@ -17,7 +17,7 @@ class MainScreenTheme < ConfigBase
     crossfade: "Crossfade theme.",
     crossfade_gameplay: "Crossfade gameplay theme."
   }
-  DEFAULT = "wheel"
+  DEFAULT = "wheeler"
 
   HORIZONAL_CONF = <<~EOS
     up = Keypad 8,Up,joyHat0Up,joyAxis1-,joyAxis4+

@@ -167,7 +167,7 @@ class TimeAndDateDisplay < ConfigBase
     datetime: "Show both the current time and date.",
     disabled: "Do not show the time or date."
   }
-  DEFAULT = "datetime"
+  DEFAULT = "time"
   @@target = "layouts/Arcades/layout - 5.xml"
 
   def set(val)
@@ -230,7 +230,7 @@ class WallThemesVideos < ConfigBase
     gameplay: "Use gameplay variants of wall themes.",
     attract: "Use attract-mode variants of wall themes."
   }
-  DEFAULT = "gameplay"
+  DEFAULT = "attract"
 
   def set(val)
     case val
@@ -314,7 +314,7 @@ class ScreenGlass < ConfigBase
     first_person: "Reflective glass with a first-person style reflection.",
     sharp: "Reflective glass with a sharp reflection."
   }
-  DEFAULT = "disabled"
+  DEFAULT = "scuffed"
 
   # These commented out ones are referenced in the BAT, but the directories don't exist in this build
   BEZEL_PATHS = [
@@ -431,7 +431,7 @@ class BezelArt < ConfigBase
     full: "The entire bezel is visible, and the game screen is slightly smaller to make room for the bezel. Use this if you want to see the entire bezel graphic.",
     cropped: "The game screen is maximized, so less of the bezel is visible. The bezel is also slightly darker in this variation, since emphasis is on the game itself."
   }
-  DEFAULT = "full"
+  DEFAULT = "cropped"
 
   def set(val)
     case val
