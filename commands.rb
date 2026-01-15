@@ -1,16 +1,22 @@
 class Commands < CommandBase
   DESCRIPTIONS = {
-    reset_defaults: "Reset all CoinOps configurations to their default values.",
-    mame_screen_cycle: "Cycle MAME's screen setting through detected monitors.",
+    remove_settings_overlays: "Removes any settings and controls conf files that can override the main configuration files. Useful for transitioning away from old .bat files, which used settingsX.conf and controlsX.conf files to override main settings. This system now updates the main settings.conf file directly, so these override files can cause confusion.",
+    fix_coinops: "DEVELOPMENT IN PROGRESS: swap in known good templates and files to attempt to reset CoinOps to a known good state.",
+    mame_screen_cycle: "DEVELOPMENT IN PROGRESS: Cycle MAME's screen setting through detected monitors.",
     clear_favorites: "Clear the list of favorite games.",
-    reset_avorites: "Reset favorite games to a CoinOps-supplied default list.",
+    reset_favorites: "Reset favorite games to a CoinOps-supplied default list.",
     reset_last_played: "CoinOps comes with baked-in 'last played' lists. This resets them to original values.",
-    reset_mame: "Copy in known good version mame.ini, and other resets to make MAME nice and fresh.",
+    reset_mame: "DEVELOPMENT IN PROGRESS: Copy in known good version mame.ini, and other resets to make MAME nice and fresh.",
     copy_retro_pc_logos: "Moves logos from RetroPC folders into a place they are needed for the main menu. Use this if you've created or unpacked an addon in the RetroPC folder."
   }
+  def remove_settings_overlays
+      # Remove any settings and controls confs that can override the main files
+    (1..15).each { |i| remove "settings#{i}.conf" }
+    (1..9).each { |i| remove "controls#{i}.conf" }
+  end
 
   # Reset EVERYTHING to known good defaults
-  def reset_defaults
+  def fix_coinops
     Commands::ResetMame.new.execute!
     Commands::ResetFavorites.new.execute!
     Commands::ResetLastPlayed.new.execute!
@@ -35,8 +41,7 @@ class Commands < CommandBase
     Condig::Scanlines.new.reset!
 
     # Remove any settings and controls confs that can override the main files
-    (1..15).each { |i| remove "settings#{i}.conf" }
-    (1..9).each { |i| remove "controls#{i}.conf" }
+    remove_settings_overlays
 
     # TODO review - are these needed?
     remove "emulators/mame/roms/neogeo/uni-bios_4_0.rom" # this file is in autochanged, but not referenced in any .bat

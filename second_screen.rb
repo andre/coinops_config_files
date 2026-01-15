@@ -1,5 +1,5 @@
 class SecondScreenControlsOverlay < ConfigBase
-  DESCRIPTION = "Toggle second screen controls overlay."
+  DESCRIPTION = "Toggle second screen controls overlay. This overlay shows controls (what buttons do, etc). Only for MAME games currently!"
   OPTIONS = {enabled: "Enable overlay.", disabled: "Disable overlay."}
   DEFAULT = "disabled"
 
@@ -23,7 +23,7 @@ class SecondScreenControlsOverlay < ConfigBase
 end
 
 class SecondScreenMetadata < ConfigBase
-  DESCRIPTION = "Enable or disable metadata on the second screen."
+  DESCRIPTION = "Enable or disable metadata on the second screen. Metadata manufacturer and release year"
   OPTIONS = {
     enabled: "Enable metadata overlay.",
     disabled: "Disable metadata overlay."
