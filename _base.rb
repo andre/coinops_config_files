@@ -4,26 +4,36 @@
 module Helpers
   def remove(path)
     FileUtils.rm(path) if File.exist?(path)
+  rescue Errno::ENOENT => e
+      failures << self.class.name+": "+e.message     
   end
 
   def copy(src, dest)
     FileUtils.cp(src, dest)
+  rescue Errno::ENOENT => e
+      failures << self.class.name+": "+e.message   
   end
 
   # copy all the files matching the glob passed in src. Example:
   # copy_matching("autochange/WallsAttract/*", "layouts/Arcades")
   def copy_matching(src, dest)
     FileUtils.cp_r Dir.glob(src), dest
+  rescue Errno::ENOENT => e
+      failures << self.class.name+": "+e.message     
   end
 
   def exist?(path)
     File.exist?(path)
+  rescue Errno::ENOENT => e
+      failures << self.class.name+": "+e.message     
   end
 
   # given two paths, check if the files are equal via MD5 checksum
   # Will throw a Errno::ENOENT if either file doesn't exist
   def files_equal?(path1, path2)
     Digest::MD5.file(path1).hexdigest == Digest::MD5.file(path2).hexdigest
+  rescue Errno::ENOENT => e
+      failures << self.class.name+": "+e.message 
   end
 
   # given a path to a .conf file with `key = value` format, plus a key, return the value as a string.
@@ -39,7 +49,8 @@ module Helpers
         return parts[1].strip
       end
     end
-    nil
+  rescue Errno::ENOENT => e
+      failures << self.class.name+": "+e.message
   end
 
   # given a path to a .conf file with `key = value` format, plus "text" with any number of `key = value` pairs,
@@ -68,6 +79,8 @@ module Helpers
     content << remaining.map { |k, v| "#{k} = #{v}\n" }.join
 
     File.write(path, content)
+  rescue Errno::ENOENT => e
+      failures << self.class.name+": "+e.message     
   end
 
   # given a path to a .ini file with `key  value` format, plus a key, return the value as a string
@@ -84,6 +97,8 @@ module Helpers
       end
     end
     nil
+  rescue Errno::ENOENT => e
+      failures << self.class.name+": "+e.message     
   end
 
   # given a path to a .conf file with `key value` format, plus "text" with any number of `key value` pairs,
@@ -112,7 +127,14 @@ module Helpers
     content << remaining.map { |k, v| "#{k} #{v}\n" }.join
 
     File.write(path, content)
+  rescue Errno::ENOENT => e
+      failures << self.class.name+": "+e.message     
   end
+
+  def failures
+    @failures ||= []
+  end
+
 end
 
 class ConfigBase
@@ -121,6 +143,7 @@ class ConfigBase
   # This relies on both a method and a constant that is defined in all child classes.
   def reset!
     set(default)
+    self
   end
 
   def self.default
@@ -171,10 +194,6 @@ end
 
 class CommandBase
   include ::Helpers
-
-  def self.commands
-    instance_methods(false).sort.map
-  end
 
   def self.to_array
     descriptions = const_get(:DESCRIPTIONS)

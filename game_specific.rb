@@ -24,7 +24,7 @@ class LaserDiscGameArrows < ConfigBase
         "collections/Arcade/launchers/Dragons Lair with Helper.conf"
       )
     rescue
-      false
+      DEFAULT
     end
 
     dragons_helper ? "enabled" : "disabled"
@@ -52,7 +52,7 @@ class CPS2MarvelRoms < ConfigBase
   def status
     files_equal?("emulators/mame/roms/msh.zip", "autochanger/CPS2 Marvel Boss Hack Roms/msh.zip") ? "boss" : "standard"
   rescue
-    "unknown"
+    DEFAULT
   end
 end
 

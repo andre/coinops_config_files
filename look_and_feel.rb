@@ -50,28 +50,28 @@ class AttractModeAutoscroll < ConfigBase
     "90": "Scroll to a new game every 90 seconds",
     "120": "Scroll to a new game every 120 seconds",
     "195": "Scroll to a new game every 195 seconds",
-    disabled: "Do not auto-scroll to a new game"
+    "disabled": "Do not auto-scroll to a new game"
   }
   DEFAULT = "90"
 
   def set(val)
     case val
     when "30"
-      copy_stuff
+      # copy_stuff
       remove("layouts/Arcades/attract.txt")
       set_conf "settings.conf", '
         attractModeTime = 30
         attractModeNextTime = 30
       '
     when "60"
-      copy_stuff
+      # copy_stuff
       remove "layouts/Arcades/attract.txt"
       set_conf "settings.conf", '
         attractModeTime	= 60
         attractModeNextTime = 60
       '
     when "90"
-      copy_stuff
+      # copy_stuff
       remove "layouts/Arcades/attract.txt"
       # in the bat files, we remove settings1.conf entirely to make the settings.conf settings take effect.
       # It's clearer to just set the values explicitly here.
@@ -80,21 +80,21 @@ class AttractModeAutoscroll < ConfigBase
         attractModeNextTime = 90
       '
     when "120"
-      copy_stuff
+     #  copy_stuff
       remove "layouts/Arcades/attract.txt"
       set_conf "settings.conf", '
         attractModeTime	= 120
         attractModeNextTime = 120
       '
     when "195"
-      copy_stuff
+      # copy_stuff
       copy("autochanger/settings.txt", "layouts/Arcades/attract.txt")
       set_conf "settings.conf", '
         attractModeTime	= 185
         attractModeNextTime = 195
       '
     when "disable"
-      copy_stuff
+      # copy_stuff
       remove "layouts/Arcades/attract.txt"
       make_settings '
       attractModeTime	= 0
@@ -110,6 +110,7 @@ class AttractModeAutoscroll < ConfigBase
 
   private
 
+  # TODO: is this needed? The bats had it, but, at least in the micro build, these zzzSettings files don't exist.
   def copy_stuff
     copy "collections/zzzSettings/medium_artwork/logo/zz Attract Off.png", "collections/zzzSettings/medium_artwork/logo/zz Attract.png"
     copy "collections/zzzSettings/medium_artwork/Aura/zz Attract Off.png", "collections/zzzSettings/medium_artwork/Aura/zz Attract.png"
