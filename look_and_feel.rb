@@ -153,7 +153,7 @@ class AttractModeFastScroll < ConfigBase
     val = get_conf "settings.conf", "attractModeFast"
     (val == "yes") ? "enabled" : "disabled"
   end
-
+end
 
 
 class GameMetadataDisplay < ConfigBase
@@ -474,7 +474,7 @@ class BezelStyle < ConfigBase
     when "disabled"
       copy "autochanger/horizontdisable.ini", "emulators/mame/horizont.ini"
       copy "autochanger/verticaldisable.ini", "emulators/mame/vertical.ini"
-    end
+    end    
   end
 
   def status
