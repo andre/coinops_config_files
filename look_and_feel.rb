@@ -96,7 +96,7 @@ class AttractModeAutoscroll < ConfigBase
     when "disable"
       # copy_stuff
       remove "layouts/Arcades/attract.txt"
-      make_settings '
+      set_conf "settings.conf", '
       attractModeTime	= 0
       attractModeNextTime = 0
       '
@@ -121,6 +121,40 @@ class AttractModeAutoscroll < ConfigBase
     copy "collections/zzzSettings/medium_artwork/videoSD/zz Attract Off.png", "collections/zzzSettings/medium_artwork/videoSD/zz Attract.png"
   end
 end
+
+class AttractModeFastScroll < ConfigBase
+  DESCRIPTION = "TODO: What does attractModeFast do?"
+  OPTIONS = {
+    "enabled": "Fast mode enabled",
+    "disabled": "Fast mode disabled"
+  }
+  DEFAULT = "disabled"
+
+  def set(val)
+    case val
+    when "enable"
+      remove "layouts/Arcades/attract.txt"
+      set_conf "settings.conf", '
+        attractModeFast = yes
+        attractModeMinTime = 1400
+        attractModeMaxTime = 4600
+      '
+    when "disable"
+      copy("autochanger/settings.txt", "layouts/Arcades/attract.txt")      
+      set_conf "settings.conf", '
+        attractModeFast = no
+        attractModeMinTime = 400
+        attractModeMaxTime = 2600    
+      '
+    end
+  end
+
+  def status
+    val = get_conf "settings.conf", "attractModeFast"
+    (val == "yes") ? "enabled" : "disabled"
+  end
+
+
 
 class GameMetadataDisplay < ConfigBase
   DESCRIPTION = "With this setting you can see metadata about each game (manufacturer, year, control type, number of players) displayed on the game selection menu. There are options for how much metadata to show, and where it appears on the screen. Note this setting applies to the MAIN screen (there are other settings for the 2nd/marquee screen if you have one)."
@@ -378,24 +412,18 @@ class Scanlines < ConfigBase
   def set(val)
     case val
     when "normal"
-      copy "autochanger/horizontFB.ini", "emulators/mame/horizont.ini"
-      copy "autochanger/verticalFB.ini", "emulators/mame/vertical.ini"
       copy "autochanger/CRTcurve.ini", "emulators/mame/ini/presets/raster.ini"
       copy "autochanger/vector.ini", "emulators/mame/ini/presets/vector.ini"
       copy "autochanger/vector-mono.ini", "emulators/mame/ini/presets/vector-mono.ini"
       copy "autochanger/ArcCabView.json", "emulators/mame/bgfx/chains/ArcCabView/ArcCabView.json"
       copy "autochanger/ArcCabView_Neo304.json", "emulators/mame/bgfx/chains/ArcCabView/ArcCabView_Neo304.json"
     when "blooming"
-      copy "autochanger/horizontFB.ini", "emulators/mame/horizont.ini"
-      copy "autochanger/verticalFB.ini", "emulators/mame/vertical.ini"
       copy "autochanger/CRTcurveGlow.ini", "emulators/mame/ini/presets/raster.ini"
       copy "autochanger/vectorGlow.ini", "emulators/mame/ini/presets/vector.ini"
       copy "autochanger/vector-monoGlow.ini", "emulators/mame/ini/presets/vector-mono.ini"
       copy "autochanger/ArcCabViewBloom.json", "emulators/mame/bgfx/chains/ArcCabView/ArcCabView.json"
       copy "autochanger/ArcCabView_Neo304Bloom.json", "emulators/mame/bgfx/chains/ArcCabView/ArcCabView_Neo304.json"
     when "disabled"
-      copy "autochanger/horizontFB.ini", "emulators/mame/horizont.ini"
-      copy "autochanger/verticalFB.ini", "emulators/mame/vertical.ini"
       copy "autochanger/CRTsharp.ini", "emulators/mame/ini/presets/raster.ini"
       copy "autochanger/vectorLCD.ini", "emulators/mame/ini/presets/vector.ini"
       copy "autochanger/vector-monoLCD.ini", "emulators/mame/ini/presets/vector-mono.ini"
@@ -425,6 +453,38 @@ end
 # reflective no cropping dusk:   copy ..\autochanger\mamereflect16x9bezel2.ini .\..\emulators\mame\mame.ini
 # view                      Bezel2
 # video                     bgfx
+
+class BezelStyle < ConfigBase
+  DESCRIPTION = "Choose your preferred bezel style for MAME games."
+  OPTIONS = {
+    artwork: "Bezels have unique art for each game. Reflections work with this bezel style.",
+    uniform: "One uniform retro gray bezel for all games. Reflections work with this bezel style.",
+    disabled: "No bezels graphics or artwork. Area around the screen is black. Reflections don't work with this bezel style, since there's no bezel for reflection."
+  }
+  DEFAULT = "artwork"
+
+  def set(val)
+    case val
+    when "artwork"
+      copy "autochanger/horizontFB.ini", "emulators/mame/horizont.ini"
+      copy "autochanger/verticalFB.ini", "emulators/mame/vertical.ini"
+    when "uniform"
+      copy "autochanger/horizont.ini", "emulators/mame/horizont.ini"
+      copy "autochanger/vertical.ini", "emulators/mame/vertical.ini"
+    when "disabled"
+      copy "autochanger/horizontdisable.ini", "emulators/mame/horizont.ini"
+      copy "autochanger/verticaldisable.ini", "emulators/mame/vertical.ini"
+    end
+  end
+
+  def status
+    file = "emulators/mame/horizont.ini"
+    return "artwork" if files_equal?(file, "autochanger/horizontFB.ini")
+    return "uniform" if files_equal?(file, "autochanger/horizont.ini")
+    return "disabled" if files_equal?(file, "autochanger/horizontdisable.ini")
+  end
+end
+
 
 class BezelArt < ConfigBase
   DESCRIPTION = "While being played, most games have artwork surrouding the game screen. This setting controls whether the bezel artwork is visible in its entirety, or whether it is cropped somewhat to allow more space for the gameplay."
