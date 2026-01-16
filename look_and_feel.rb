@@ -455,7 +455,7 @@ end
 # video                     bgfx
 
 class BezelStyle < ConfigBase
-  DESCRIPTION = "Choose your preferred bezel style for MAME games."
+  DESCRIPTION = "This is an in-game setting. Choose your preferred bezel style for MAME games."
   OPTIONS = {
     artwork: "Bezels have unique art for each game. Reflections work with this bezel style.",
     uniform: "One uniform retro gray bezel for all games. Reflections work with this bezel style.",
@@ -486,8 +486,8 @@ class BezelStyle < ConfigBase
 end
 
 
-class BezelArt < ConfigBase
-  DESCRIPTION = "While being played, most games have artwork surrouding the game screen. This setting controls whether the bezel artwork is visible in its entirety, or whether it is cropped somewhat to allow more space for the gameplay."
+class BezelCropping < ConfigBase
+  DESCRIPTION = "This is an in-game setting. It controls whether the gameplay expands to take up as much of the screen as possible (that's bezel cropping), or whether the gameplay is a bit smaller so the bezel artwork is visible in its entirety (that's 'full' bezel)."
   OPTIONS = {
     full: "The entire bezel is visible, and the game screen is slightly smaller to make room for the bezel. Use this if you want to see the entire bezel graphic.",
     cropped: "The game screen is maximized, so less of the bezel is visible. The bezel is also slightly darker in this variation, since emphasis is on the game itself."
