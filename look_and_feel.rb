@@ -440,20 +440,6 @@ class Scanlines < ConfigBase
   end
 end
 
-# Cropped Lights out: 		   copy ..\autochanger\mame16x9.ini .\..\emulators\mame\mame.ini
-# view                      auto
-# video                     auto
-# No cropping dusk:   		   copy ..\autochanger\mame16x9bezel2.ini .\..\emulators\mame\mame.ini
-# view                      Bezel2
-# video                     auto
-
-# reflective cropped lights out: copy ..\autochanger\mamereflect16x9.ini .\..\emulators\mame\mame.ini
-# view                      auto
-# video                     bgfx
-# reflective no cropping dusk:   copy ..\autochanger\mamereflect16x9bezel2.ini .\..\emulators\mame\mame.ini
-# view                      Bezel2
-# video                     bgfx
-
 class BezelStyle < ConfigBase
   DESCRIPTION = "This is an in-game setting. Choose your preferred bezel style for MAME games."
   OPTIONS = {
@@ -487,10 +473,10 @@ end
 
 
 class BezelCropping < ConfigBase
-  DESCRIPTION = "This is an in-game setting. It controls whether the gameplay expands to take up as much of the screen as possible (that's bezel cropping), or whether the gameplay is a bit smaller so the bezel artwork is visible in its entirety (that's 'full' bezel)."
+  DESCRIPTION = "This applies only to games with horizontally oriented screens. It controls whether the gameplay expands to take up as much of the screen as possible (that's bezel cropping), or whether the gameplay is a bit smaller so the bezel artwork is visible in its entirety (that's 'full' bezel)."
   OPTIONS = {
     full: "The entire bezel is visible, and the game screen is slightly smaller to make room for the bezel. Use this if you want to see the entire bezel graphic.",
-    cropped: "The game screen is maximized, so less of the bezel is visible. The bezel is also slightly darker in this variation, since emphasis is on the game itself."
+    cropped: "The game screen is maximized, so less of the bezel is visible. The bezel is also darker in this variation, since emphasis is on the game itself."
   }
   DEFAULT = "cropped"
 
@@ -523,8 +509,32 @@ class BezelCropping < ConfigBase
   end
 end
 
+# Cropped Lights out: 		   copy ..\autochanger\mame16x9.ini .\..\emulators\mame\mame.ini
+# view                      auto
+# video                     auto
+# bgfx_screen_chains        default
+# hlsl_enable               1
+
+# No cropping dusk:   		   copy ..\autochanger\mame16x9bezel2.ini .\..\emulators\mame\mame.ini
+# view                      Bezel2
+# video                     auto
+# bgfx_screen_chains        default
+# hlsl_enable               1
+
+# reflective cropped lights out: copy ..\autochanger\mamereflect16x9.ini .\..\emulators\mame\mame.ini
+# view                      auto
+# video                     bgfx
+# bgfx_screen_chains        ArcCabView
+# hlsl_enable               0
+
+# reflective no cropping dusk:   copy ..\autochanger\mamereflect16x9bezel2.ini .\..\emulators\mame\mame.ini
+# view                      Bezel2
+# video                     bgfx
+# bgfx_screen_chains        ArcCabView
+# hlsl_enable               0
+
 class BezelReflectivity < ConfigBase
-  DESCRIPTION = "When enabled, you'll see a subtile reflection around the edge of the 'screen' while playing a game. It's only noticable when game graphics extend to the edges of the screen."
+  DESCRIPTION = "When enabled, you'll see a subtle reflection around the edge of the 'screen' while playing a game. It's only noticeable when game graphics extend to the edges of the screen."
   OPTIONS = {
     enabled: "The bezel shows a subtile reflection of graphics on the game screen.",
     disabled: "No reflection is visible."
@@ -534,9 +544,17 @@ class BezelReflectivity < ConfigBase
   def set(val)
     case val
     when "enabled"
-      set_ini "emulators/mame/mame.ini", "video  bgfx"
+      set_ini "emulators/mame/mame.ini", "
+      video  bgfx
+      bgfx_screen_chains        ArcCabView
+      hlsl_enable               0
+      "
     when "disabled"
-      set_ini "emulators/mame/mame.ini", "video   auto"
+      set_ini "emulators/mame/mame.ini", "
+      video   auto
+      bgfx_screen_chains        default
+      hlsl_enable               1
+      "
     end
   end
 
