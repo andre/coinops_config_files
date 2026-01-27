@@ -36,60 +36,35 @@ module Helpers
       failures << self.class.name+": "+e.message 
   end
 
-  # given a path to a .conf file with `key = value` format, plus a key, return the value as a string.
-  # if the key doesn't exist, return nill
-  def get_conf(path, key)
-    File.readlines(path).each do |line|
-      line = line.strip
-      next if line.empty? || line.start_with?("#")
-
-      parts = line.split("=", 2)
-      if parts.length == 2 && parts[0].strip == key
-        return parts[1].strip
-      end
-    end
-  rescue Errno::ENOENT => e
-      failures << self.class.name+": "+e.message
+  # Below here are helpers for reading and writing config files with key-value pairs.
+  # Supports both .conf files and .ini files -- they only vary by the delimiter 
+  def delimiter_for(path)
+    File.extname(path) == ".conf" ? "=" : " "
   end
 
-  # given a path to a .conf file with `key = value` format, plus "text" with any number of `key = value` pairs,
-  # find or create the indicated keys in the file with their corresponding values. If any of the keys don't exist, just create them.
-  def set_conf(path, text)
-    # Parse input text to extract key-value pairs
-    updates = {}
-    text.lines.each do |line|
-      line =~ /^\s*(.+?)\s*=\s*(.+)\s*$/
-      updates[$1] = $2 if $1
-    end
-
-    # Read file and replace matching keys
-    content = File.read(path)
-    matched_keys = []
-    updates.each do |key, value|
-      if content.gsub!(/^\s*#{Regexp.escape(key)}\s*=.*$/, "#{key} = #{value}")
-        matched_keys << key
-      end
-    end
-
-    # handle any key/values that didn't get taken care of above
-    remaining = updates.except(*matched_keys)
-    content << remaining.map { |k, v| "#{k} = #{v}\n" }.join
-
-    File.write(path, content)
-  rescue Errno::ENOENT => e
-      failures << self.class.name+": "+e.message     
+  # Regex is used in multiple places, so it's extracted here.
+  # After matching: $1 = key, $2 = value
+  def line_matcher_regex(key, delimiter)
+    #       Key                     Delim         Value
+    /^\s*(#{Regexp.escape(key)})\s*#{Regexp.escape(delimiter)}\s*(\S+)/
   end
 
-  # given a path to a .ini file with `key  value` format, plus a key, return the value as a string
+  # Given a path to a config file and a key, return the value as a string.
+  # - .conf files use `key = value` format
+  # - .ini files use `key value` format (space-delimited)
+  # - Use the `delimiter:` option to override the automatic detection
   #
-  # if they key isn't found, return nil
-  def get_ini(path, key)
+  # If the file doesn't exist, capture the failure in the @failures array and returns nil.
+  # If the key doesn't exist, returns nil.
+  def get_value(path, key, delimiter: nil)
+    delimiter ||= delimiter_for(path)
+
     File.readlines(path).each do |line|
       line = line.strip
       next if line.empty? || line.start_with?("#") || line.start_with?(";")
-
-      if line =~ /^\s*(\S+)\s+(.+)$/
-        return $2.strip if $1 == key
+            
+      if line =~ line_matcher_regex(key, delimiter)
+        return $2
       end
     end
     nil
@@ -97,48 +72,61 @@ module Helpers
       failures << self.class.name+": "+e.message     
   end
 
-  # given a path to a .conf file with `key value` format, plus "text" with any number of `key value` pairs,
-  # find or create the indicated keys in the file with their corresponding values. If any of the keys don't exist, just create them.
+  # Given a path to a config file and text containing key-value pairs,
+  # find or create the indicated keys with their corresponding values.
+  # - .conf files use `key = value` format
+  # - .ini files use `key value` format (space-delimited)
+  # - Use the `delimiter:` option to override the automatic detection
   #
-  def set_ini(path, text)
-    # Parse input text to extract key value pairs (key followed by whitespace then value)
-    updates = {}
+  # If the file doesn't exist, capture the failure in the @failures array and returns nil.
+  def set_value(path, text, delimiter: nil)
+    delimiter ||= delimiter_for(path)
+
+    # Parse INPUT text to extract key value pairs
+    keys_to_update = {}
     text.lines.each do |line|
-      line =~ /^\s*(\S+)\s+(.+)\s*$/
-      updates[$1] = $2.strip if $1
+      k,v = line.strip.split(/\s*#{Regexp.escape(delimiter)}\s*/, 2)  
+      keys_to_update[k] = v
     end
 
-    # Read file and replace matching keys
+    # STEP 1: Replace value for keys that ALREADY exist in the file
     content = File.read(path)
     matched_keys = []
-    updates.each do |key, value|
-      if content.gsub!(/^\s*#{Regexp.escape(key)}\s+.*$/, "#{key} #{value}")
+    keys_to_update.each do |key, value|
+      line_matcher_regex = line_matcher_regex(key, delimiter)
+      if content.gsub!(line_matcher_regex, "#{key} #{delimiter} #{value}")
         matched_keys << key
       end
     end
 
-    # handle any key/values that didn't get taken care of above
-    remaining = updates.except(*matched_keys)
-    content << remaining.map { |k, v| "#{k} #{v}\n" }.join
+    # STEP 2: Append key-value pairs that did NOT already exist in the file
+    remaining = keys_to_update.except(*matched_keys)
+    remaining.each do |key, value|
+      content << "\n#{key} #{delimiter} #{value}" 
+    end
 
+    # STEP 3: Write the updated content back to the file
     File.write(path, content)
   rescue Errno::ENOENT => e
       failures << self.class.name+": "+e.message     
   end
 
+  # Array of failure messages encountered during file operations. It's common that files don't exist, expecially across different versions of CoinOps (max, micro, etc).
+  # in cases when that happens, we just capture failure here to expose them in the UI and/or log them as needed. 
   def failures
     @failures ||= []
   end
 
 end
 
+# Each config has its owbn class, and it should inherit from this ConfigBase class
 class ConfigBase
   include ::Helpers
 
   # This relies on both a method and a constant that is defined in all child classes.
   def reset!
     set(default)
-    self
+    self # so it's chainable
   end
 
   def self.default
@@ -153,18 +141,21 @@ class ConfigBase
     const_defined?(:OPTIONS) ? const_get(:OPTIONS) : {}
   end
 
-  def options
-    self.class.options
-  end
-
   def self.description
     const_defined?(:DESCRIPTION) ? const_get(:DESCRIPTION) : ""
   end
 
+  # convenience method to call on an instance
   def description
-    description
+    self.class.description
   end
 
+  # convenience method to call on an instance
+  def options
+    self.class.options
+  end  
+
+  # To call on a specific class. Note that in order to get the status, an instance must be created.
   def self.to_hash(status = true)
     {
       "name" => name,
@@ -175,6 +166,7 @@ class ConfigBase
     }
   end
 
+  # get can an array of all Config classes (we do this by getting all the subclasses of ConfigBase)
   def self.to_array
     ConfigBase.subclasses.sort_by { |c| c.name }.map do |c|
       {
@@ -187,6 +179,8 @@ class ConfigBase
   end
 end
 
+# Commands are different. All commands live in one class, and each command is a method. The Command class should inherit from this CommandBase class, 
+# to have access to all the helpers plus the to_array method.
 class CommandBase
   include ::Helpers
 
