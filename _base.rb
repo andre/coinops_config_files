@@ -37,7 +37,6 @@ module Helpers
   end
 
   # given a path to a .conf file with `key = value` format, plus a key, return the value as a string.
-  # If the file doesn't exist, let it throw an Errno::ENOENT
   # if the key doesn't exist, return nill
   def get_conf(path, key)
     File.readlines(path).each do |line|
@@ -55,8 +54,6 @@ module Helpers
 
   # given a path to a .conf file with `key = value` format, plus "text" with any number of `key = value` pairs,
   # find or create the indicated keys in the file with their corresponding values. If any of the keys don't exist, just create them.
-  #
-  # If the file doesn't exist, let it throw an Errno::ENOENT
   def set_conf(path, text)
     # Parse input text to extract key-value pairs
     updates = {}
@@ -85,7 +82,6 @@ module Helpers
 
   # given a path to a .ini file with `key  value` format, plus a key, return the value as a string
   #
-  # If the file isn't found, raise an Exception
   # if they key isn't found, return nil
   def get_ini(path, key)
     File.readlines(path).each do |line|
@@ -104,7 +100,6 @@ module Helpers
   # given a path to a .conf file with `key value` format, plus "text" with any number of `key value` pairs,
   # find or create the indicated keys in the file with their corresponding values. If any of the keys don't exist, just create them.
   #
-  # If the file isn't found, let it throw an Errno::ENOENT
   def set_ini(path, text)
     # Parse input text to extract key value pairs (key followed by whitespace then value)
     updates = {}
