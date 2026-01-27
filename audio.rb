@@ -13,18 +13,18 @@ class MixTape < ConfigBase
   def set(val)
     case val
     when "default"
-      set_conf "settings.conf", %q[musicPlayer.folder = .\music\MixTape (ARISE)]
+      set_value "settings.conf", %q[musicPlayer.folder = .\music\MixTape (ARISE)]
     when "glam"
-      set_conf "settings.conf", %q[musicPlayer.folder = .\music\MixTAPE (Glam Rock)]
+      set_value "settings.conf", %q[musicPlayer.folder = .\music\MixTAPE (Glam Rock)]
     when "beats"
-      set_conf "settings.conf", %q[musicPlayer.folder = .\music\MixTAPE (Beats)]
+      set_value "settings.conf", %q[musicPlayer.folder = .\music\MixTAPE (Beats)]
     when "80s"
-      set_conf "settings.conf", %q[musicPlayer.folder = .\music\MixTAPE (The 80s)]
+      set_value "settings.conf", %q[musicPlayer.folder = .\music\MixTAPE (The 80s)]
     end
   end
 
   def status
-    val = get_conf("settings.conf", "musicPlayer.folder")
+    val = get_value("settings.conf", "musicPlayer.folder")
     if val.include?("ARISE")
       "default"
     elsif val.include?("Glam Rock")
@@ -52,29 +52,29 @@ class MusicPlayer < ConfigBase
   def set(val)
     case val
     when "menu"
-      set_conf "settings.conf", '
+      set_value "settings.conf", '
             musicPlayer.enabled = true
             musicPlayer.playInGame = false'
     when "game"
-      set_conf "settings.conf", '"
+      set_value "settings.conf", '"
             musicPlayer.enabled = false
             musicPlayer.playInGame = true
             musicPlayer.playInGameVol = 100'
     when "both"
-      set_conf "settings.conf", '
+      set_value "settings.conf", '
             musicPlayer.enabled = true
             musicPlayer.playInGame = true
             musicPlayer.playInGameVol = 100'
     when "none"
-      set_conf "settings.conf", '
+      set_value "settings.conf", '
             musicPlayer.enabled = false
             musicPlayer.playInGame = false'
     end
   end
 
   def status
-    enabled = get_conf("settings.conf", "musicPlayer.enabled") == "true"
-    play_in_game = get_conf("settings.conf", "musicPlayer.playInGame") == "true"
+    enabled = get_value("settings.conf", "musicPlayer.enabled") == "true"
+    play_in_game = get_value("settings.conf", "musicPlayer.playInGame") == "true"
 
     if enabled && !play_in_game
       "menu"
@@ -99,13 +99,13 @@ class MenuGameSounds < ConfigBase
   def set(val)
     case val
     when "enabled"
-      set_conf "settings.conf", "MuteVideo = no"
+      set_value "settings.conf", "MuteVideo = no"
     when "disabled"
-      set_conf "settings.conf", "MuteVideo = yes"
+      set_value "settings.conf", "MuteVideo = yes"
     end
   end
 
   def status
-    ((get_conf("settings.conf", "MuteVideo") || "").downcase == "no") ? "enabled" : "disabled"
+    ((get_value("settings.conf", "MuteVideo") || "").downcase == "no") ? "enabled" : "disabled"
   end
 end

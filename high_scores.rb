@@ -43,7 +43,7 @@ class HighScores < ConfigBase
 
     write_controls(config[:controls])
     conf_value = (val == "disabled") ? "false" : "true"
-    set_conf "settings.conf", "globalHiscoresEnabled = #{conf_value}"
+    set_value "settings.conf", "globalHiscoresEnabled = #{conf_value}"
   end
 
   def status
@@ -61,14 +61,14 @@ class HighScores < ConfigBase
   def write_controls(mode)
     case mode
     when :joy
-      set_conf "settings.conf", <<~CONF
+      set_value "settings.conf", <<~CONF
         toggleCollectionInfo = joyButton2
         toggleBuildInfo = joyButton1
         letterDown = N,joyButton4
         letterUp = M,joyButton5
       CONF
     else
-      set_conf "settings.conf", <<~CONF
+      set_value "settings.conf", <<~CONF
         toggleCollectionInfo = null
         toggleBuildInfo = null
         letterDown = null

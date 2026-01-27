@@ -128,7 +128,7 @@ class Commands < CommandBase
     mame_exe = "emulators/mame/mame64.exe"
     raise "mame64.exe not found at #{mame_exe}" unless exist?(mame_exe)
     raise "mame.ini not found at #{mame_ini}" unless exist?(mame_ini)
-    current_screen = get_ini(mame_ini, "screen") || "auto"
+    current_screen = get_value(mame_ini, "screen") || "auto"
     monitors = []
     marker_seen = false
     io = IO.popen([mame_exe, "-v", "-video", "none"], err: [:child, :out])
@@ -161,7 +161,7 @@ class Commands < CommandBase
     current_screen = monitors.first if current_screen == "auto"
     index = monitors.index(current_screen) || 0
     next_screen = monitors[(index + 1) % monitors.length]
-    set_ini mame_ini, "screen  #{next_screen}"
+    set_value mame_ini, "screen  #{next_screen}"
   end
 
   def clear_favorites

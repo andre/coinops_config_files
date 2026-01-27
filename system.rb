@@ -9,14 +9,14 @@ class SingleMonitor < ConfigBase
   def set(val)
     case val
     when "enabled"
-      set_conf "settings.conf", "screenOrder=0"
+      set_value "settings.conf", "screenOrder=0"
     when "disabled"
-      set_conf "settings.conf", "screenOrder=0,1,2"
+      set_value "settings.conf", "screenOrder=0,1,2"
     end
   end
 
   def status
-    (get_conf("settings.conf", "screenOrder") == "0") ? "enabled" : "disabled"
+    (get_value("settings.conf", "screenOrder") == "0") ? "enabled" : "disabled"
   end
 end
 
@@ -31,18 +31,18 @@ class ZeroDelayEncoder < ConfigBase
   def set(val)
     case val
     when "enabled"
-      set_conf "settings.conf", "collectionInputClear = yes"
-      set_conf "settings.conf", "playlistInputClear = yes"
-      set_conf "settings.conf", "jumpInputClear = yes"
+      set_value "settings.conf", "collectionInputClear = yes"
+      set_value "settings.conf", "playlistInputClear = yes"
+      set_value "settings.conf", "jumpInputClear = yes"
     when "disabled"
-      set_conf "settings.conf", "collectionInputClear = no"
-      set_conf "settings.conf", "playlistInputClear = no"
-      set_conf "settings.conf", "jumpInputClear = no"
+      set_value "settings.conf", "collectionInputClear = no"
+      set_value "settings.conf", "playlistInputClear = no"
+      set_value "settings.conf", "jumpInputClear = no"
     end
   end
 
   def status
-    (get_conf("settings.conf", "collectionInputClear") == "yes") ? "enabled" : "disabled"
+    (get_value("settings.conf", "collectionInputClear") == "yes") ? "enabled" : "disabled"
   end
 end
 
@@ -58,14 +58,14 @@ class MenuHardwareAcceleration < ConfigBase
   def set(val)
     case val
     when "enabled"
-      set_conf "settings.conf", "HardwareVideoAccel=true"
+      set_value "settings.conf", "HardwareVideoAccel=true"
     when "disabled"
-      set_conf "settings.conf", "HardwareVideoAccel=false"
+      set_value "settings.conf", "HardwareVideoAccel=false"
     end
   end
 
   def status
-    (get_conf("settings.conf", "HardwareVideoAccel") == "true") ? "enabled" : "disabled"
+    (get_value("settings.conf", "HardwareVideoAccel") == "true") ? "enabled" : "disabled"
   end
 end
 
@@ -79,11 +79,11 @@ class MenuFPS < ConfigBase
   DEFAULT = "120"
 
   def set(val)
-    set_conf "settings.conf", "fps = #{val}"
+    set_value "settings.conf", "fps = #{val}"
   end
 
   def status
-    get_conf("settings.conf", "fps") || DEFAULT
+    get_value("settings.conf", "fps") || DEFAULT
   end
 end
 
@@ -96,11 +96,11 @@ class MenuFPSIdle < ConfigBase
   DEFAULT = "60"
 
   def set(val)
-    set_conf "settings.conf", "fpsIdle = #{val}"
+    set_value "settings.conf", "fpsIdle = #{val}"
   end
 
   def status
-    get_conf("settings.conf", "fpsIdle")
+    get_value("settings.conf", "fpsIdle")
   end
 end
 
@@ -114,10 +114,10 @@ class VideoRendering < ConfigBase
   DEFAULT = "direct3d11"
 
   def set(val)
-    set_conf "settings.conf", "SDLRenderDriver = #{val}"
+    set_value "settings.conf", "SDLRenderDriver = #{val}"
   end
 
   def status
-    get_conf("settings.conf", "SDLRenderDriver")
+    get_value("settings.conf", "SDLRenderDriver")
   end
 end

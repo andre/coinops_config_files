@@ -39,13 +39,13 @@ class QuitCoinops < ConfigBase
   def set(val)
     case val
     when "keyboard"
-      set_conf "settings.conf", "controllerComboExit=false"
+      set_value "settings.conf", "controllerComboExit=false"
     when "kb_or_gamepad"
-      set_conf "settings.conf", "controllerComboExit=true"
+      set_value "settings.conf", "controllerComboExit=true"
     end
   end
 
   def status
-    (get_conf("settings.conf", "controllerComboExit") == "true") ? "kb_or_gamepad" : "keyboard"
+    (get_value("settings.conf", "controllerComboExit") == "true") ? "kb_or_gamepad" : "keyboard"
   end
 end

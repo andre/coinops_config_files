@@ -31,14 +31,14 @@ class StartPosition < ConfigBase
   def set(val)
     case val
     when "random"
-      set_conf "settings.conf", "randomStart = true"
+      set_value "settings.conf", "randomStart = true"
     when "consistent"
-      set_conf "settings.conf", "randomStart = false"
+      set_value "settings.conf", "randomStart = false"
     end
   end
 
   def status
-    (get_conf("settings.conf", "randomStart") == "true") ? "random" : "consistent"
+    (get_value("settings.conf", "randomStart") == "true") ? "random" : "consistent"
   end
 end
 
@@ -59,14 +59,14 @@ class AttractModeAutoscroll < ConfigBase
     when "30"
       # copy_stuff
       remove("layouts/Arcades/attract.txt")
-      set_conf "settings.conf", '
+      set_value "settings.conf", '
         attractModeTime = 30
         attractModeNextTime = 30
       '
     when "60"
       # copy_stuff
       remove "layouts/Arcades/attract.txt"
-      set_conf "settings.conf", '
+      set_value "settings.conf", '
         attractModeTime	= 60
         attractModeNextTime = 60
       '
@@ -75,28 +75,28 @@ class AttractModeAutoscroll < ConfigBase
       remove "layouts/Arcades/attract.txt"
       # in the bat files, we remove settings1.conf entirely to make the settings.conf settings take effect.
       # It's clearer to just set the values explicitly here.
-      set_conf "settings.conf", '
+      set_value "settings.conf", '
         attractModeTime	= 90
         attractModeNextTime = 90
       '
     when "120"
      #  copy_stuff
       remove "layouts/Arcades/attract.txt"
-      set_conf "settings.conf", '
+      set_value "settings.conf", '
         attractModeTime	= 120
         attractModeNextTime = 120
       '
     when "195"
       # copy_stuff
       copy("autochanger/settings.txt", "layouts/Arcades/attract.txt")
-      set_conf "settings.conf", '
+      set_value "settings.conf", '
         attractModeTime	= 185
         attractModeNextTime = 195
       '
     when "disable"
       # copy_stuff
       remove "layouts/Arcades/attract.txt"
-      set_conf "settings.conf", '
+      set_value "settings.conf", '
       attractModeTime	= 0
       attractModeNextTime = 0
       '
@@ -104,7 +104,7 @@ class AttractModeAutoscroll < ConfigBase
   end
 
   def status
-    val = get_conf "settings.conf", "attractModeTime"
+    val = get_value "settings.conf", "attractModeTime"
     (val == "0") ? "disabled" : val
   end
 
@@ -134,14 +134,14 @@ class AttractModeFastScroll < ConfigBase
     case val
     when "enable"
       remove "layouts/Arcades/attract.txt"
-      set_conf "settings.conf", '
+      set_value "settings.conf", '
         attractModeFast = yes
         attractModeMinTime = 1400
         attractModeMaxTime = 4600
       '
     when "disable"
       copy("autochanger/settings.txt", "layouts/Arcades/attract.txt")      
-      set_conf "settings.conf", '
+      set_value "settings.conf", '
         attractModeFast = no
         attractModeMinTime = 400
         attractModeMaxTime = 2600    
@@ -150,7 +150,7 @@ class AttractModeFastScroll < ConfigBase
   end
 
   def status
-    val = get_conf "settings.conf", "attractModeFast"
+    val = get_value "settings.conf", "attractModeFast"
     (val == "yes") ? "enabled" : "disabled"
   end
 end
@@ -295,7 +295,7 @@ class BezelSwitcher < ConfigBase
   def set(val)
     case val
     when "gamepad"
-      set_ini "emulators/mame/plugin.ini", "viewswitch 1"
+      set_value "emulators/mame/plugin.ini", "viewswitch 1"
       make_cfg_for_mame_roms <<-EOS
         [{"switch":
           {"Bezel":"JOYCODE_1_BUTTON7",
@@ -303,7 +303,7 @@ class BezelSwitcher < ConfigBase
         }]
       EOS
     when "keyboard"
-      set_ini "emulators/mame/plugin.ini", "viewswitch 1"
+      set_value "emulators/mame/plugin.ini", "viewswitch 1"
       make_cfg_for_mame_roms <<-EOS
         [{"switch":
           {"Bezel":"KEYCODE_Z",
@@ -311,13 +311,13 @@ class BezelSwitcher < ConfigBase
         }]
       EOS
     when "disabled"
-      set_ini "emulators/mame/plugin.ini", "viewswitch 0"
+      set_value "emulators/mame/plugin.ini", "viewswitch 0"
     end
   end
 
   def status
     first_cfg = Dir.glob("emulators/mame/viewswitch/*.cfg").first
-    if !first_cfg || get_ini("emulators/mame/pluginViewSwitchOn.ini", "viewswitch") == "0"
+    if !first_cfg || get_value("emulators/mame/pluginViewSwitchOn.ini", "viewswitch") == "0"
       "disabled"
     else
       cfg_contents = File.read(first_cfg)
@@ -483,16 +483,16 @@ class BezelCropping < ConfigBase
   def set(val)
     case val
     when "full"
-      set_ini "emulators/mame/mame.ini", "view   Bezel2"
+      set_value "emulators/mame/mame.ini", "view   Bezel2"
       # update_game_cfg_files('view="Bezel2"', 'view="Bezel"')
     when "cropped"
-      set_ini "emulators/mame/mame.ini", "view  auto"
+      set_value "emulators/mame/mame.ini", "view  auto"
       # update_game_cfg_files('view="Bezel"', 'view="Bezel2"')
     end
   end
 
   def status
-    (get_ini("emulators/mame/mame.ini", "view") == "Bezel2") ? "full" : "cropped"
+    (get_value("emulators/mame/mame.ini", "view") == "Bezel2") ? "full" : "cropped"
   end
 
   private
@@ -544,13 +544,13 @@ class BezelReflectivity < ConfigBase
   def set(val)
     case val
     when "enabled"
-      set_ini "emulators/mame/mame.ini", "
+      set_value "emulators/mame/mame.ini", "
       video  bgfx
       bgfx_screen_chains        ArcCabView
       hlsl_enable               0
       "
     when "disabled"
-      set_ini "emulators/mame/mame.ini", "
+      set_value "emulators/mame/mame.ini", "
       video   auto
       bgfx_screen_chains        default
       hlsl_enable               1
@@ -559,6 +559,6 @@ class BezelReflectivity < ConfigBase
   end
 
   def status
-    (get_ini("emulators/mame/mame.ini", "video") == "bgfx") ? "enabled" : "disabled"
+    (get_value("emulators/mame/mame.ini", "video") == "bgfx") ? "enabled" : "disabled"
   end
 end

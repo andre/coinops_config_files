@@ -43,77 +43,77 @@ class MainScreenTheme < ConfigBase
       copy "layouts/Arcades/layout - 2 Attract.xml", "layouts/Arcades/layout - 0.xml"
       copy "layouts/Arcades/layout - 0 No Logo.xml", "layouts/Arcades/layout - 2.xml"
       copy "layouts/Arcades/layoutplaylistsH.xml", "layouts/Arcades/layoutplaylists.xml"
-      set_conf "controls.conf", HORIZONAL_CONF
+      set_value "controls.conf", HORIZONAL_CONF
     when "arcade_logo"
       copy "layouts/Arcades/layout - 2 Attract.xml", "layouts/Arcades/layout - 0.xml"
       copy "layouts/Arcades/layout - 0 Logo.xml", "layouts/Arcades/layout - 2.xml"
       copy "layouts/Arcades/layoutplaylistsH.xml", "layouts/Arcades/layoutplaylists.xml"
-      set_conf "controls.conf", HORIZONAL_CONF
+      set_value "controls.conf", HORIZONAL_CONF
     when "gameplay"
       copy "layouts/Arcades/layout - 2 Gameplay.xml", "layouts/Arcades/layout - 0.xml"
       copy "layouts/Arcades/layout - 0 No Logo.xml", "layouts/Arcades/layout - 2.xml"
       copy "layouts/Arcades/layoutplaylistsH.xml", "layouts/Arcades/layoutplaylists.xml"
-      set_conf "controls.conf", HORIZONAL_CONF
+      set_value "controls.conf", HORIZONAL_CONF
     when "gameplay_logo"
       copy "layouts/Arcades/layout - 2 Gameplay.xml", "layouts/Arcades/layout - 0.xml"
       copy "layouts/Arcades/layout - 0 Logo.xml", "layouts/Arcades/layout - 2.xml"
       copy "layouts/Arcades/layoutplaylistsH.xml", "layouts/Arcades/layoutplaylists.xml"
-      set_conf "controls.conf", HORIZONAL_CONF
+      set_value "controls.conf", HORIZONAL_CONF
     when "legends"
       copy "layouts/Arcades/layout - 2 Full.xml", "layouts/Arcades/layout - 0.xml"
       copy "layouts/Arcades/layout - 0 No Logo.xml", "layouts/Arcades/layout - 2.xml"
       copy "layouts/Arcades/layoutplaylistsH.xml", "layouts/Arcades/layoutplaylists.xml"
-      set_conf "controls.conf", HORIZONAL_CONF
+      set_value "controls.conf", HORIZONAL_CONF
     when "lights"
       copy "layouts/Arcades/layout - 2 Lights.xml", "layouts/Arcades/layout - 0.xml"
       copy "layouts/Arcades/layout - 0 No Logo.xml", "layouts/Arcades/layout - 2.xml"
       copy "layouts/Arcades/layoutplaylistsH.xml", "layouts/Arcades/layoutplaylists.xml"
-      set_conf "controls.conf", HORIZONAL_CONF
+      set_value "controls.conf", HORIZONAL_CONF
     when "marquee"
       copy "layouts/Arcades/layout - 2 Marquee.xml", "layouts/Arcades/layout - 0.xml"
       copy "layouts/Arcades/layout - 0 No Logo.xml", "layouts/Arcades/layout - 2.xml"
       copy "layouts/Arcades/layoutplaylistsV.xml", "layouts/Arcades/layoutplaylists.xml"
-      set_conf "controls.conf", VERTICAL_CONF
+      set_value "controls.conf", VERTICAL_CONF
     when "reflection"
       copy "layouts/Arcades/layout - 2 Reflection.xml", "layouts/Arcades/layout - 0.xml"
       copy "layouts/Arcades/layout - 0 No Logo.xml", "layouts/Arcades/layout - 2.xml"
       copy "layouts/Arcades/layoutplaylistsH.xml", "layouts/Arcades/layoutplaylists.xml"
-      set_conf "controls.conf", HORIZONAL_CONF
+      set_value "controls.conf", HORIZONAL_CONF
     when "spin"
       copy "layouts/Arcades/layout - 2 FullSpin.xml", "layouts/Arcades/layout - 0.xml"
       copy "layouts/Arcades/layout - 0 No Logo.xml", "layouts/Arcades/layout - 2.xml"
       copy "layouts/Arcades/layoutplaylistsH.xml", "layouts/Arcades/layoutplaylists.xml"
-      set_conf "controls.conf", HORIZONAL_CONF
+      set_value "controls.conf", HORIZONAL_CONF
     when "vertical"
       copy "layouts/Arcades/layout - 2 Vert.xml", "layouts/Arcades/layout - 0.xml"
       copy "layouts/Arcades/layout - 0 No Logo.xml", "layouts/Arcades/layout - 2.xml"
       copy "layouts/Arcades/layoutplaylistsV.xml", "layouts/Arcades/layoutplaylists.xml"
-      set_conf "controls.conf", VERTICAL_CONF
+      set_value "controls.conf", VERTICAL_CONF
     when "wall"
       copy "layouts/Arcades/layout - 2 Cabs.xml", "layouts/Arcades/layout - 0.xml"
       copy "layouts/Arcades/layout - 0 No Logo.xml", "layouts/Arcades/layout - 2.xml"
       copy "layouts/Arcades/layoutplaylistsH.xml", "layouts/Arcades/layoutplaylists.xml"
-      set_conf "controls.conf", HORIZONAL_CONF
+      set_value "controls.conf", HORIZONAL_CONF
     when "wheel"
       copy "layouts/Arcades/layout - 2 Wheel.xml", "layouts/Arcades/layout - 0.xml"
       copy "layouts/Arcades/layout - 0 No Logo.xml", "layouts/Arcades/layout - 2.xml"
       copy "layouts/Arcades/layoutplaylistsV.xml", "layouts/Arcades/layoutplaylists.xml"
-      set_conf "controls.conf", VERTICAL_CONF
+      set_value "controls.conf", VERTICAL_CONF
     when "wheeler"
       copy "layouts/Arcades/layout - 2 Wheeler.xml", "layouts/Arcades/layout - 0.xml"
       copy "layouts/Arcades/layout - 0 No Logo.xml", "layouts/Arcades/layout - 2.xml"
       copy "layouts/Arcades/layoutplaylistsV.xml", "layouts/Arcades/layoutplaylists.xml"
-      set_conf "controls.conf", VERTICAL_CONF
+      set_value "controls.conf", VERTICAL_CONF
     when "crossfade"
       copy "layouts/Arcades/layout - 2 Crossfade.xml", "layouts/Arcades/layout - 0.xml"
       copy "layouts/Arcades/layout - 0 No Logo.xml", "layouts/Arcades/layout - 2.xml"
       copy "layouts/Arcades/layoutplaylistsH.xml", "layouts/Arcades/layoutplaylists.xml"
-      set_conf "controls.conf", HORIZONAL_CONF
+      set_value "controls.conf", HORIZONAL_CONF
     when "crossfade_gameplay"
       copy "layouts/Arcades/layout - 2 Crossfade Gameplay.xml", "layouts/Arcades/layout - 0.xml"
       copy "layouts/Arcades/layout - 0 No Logo.xml", "layouts/Arcades/layout - 2.xml"
       copy "layouts/Arcades/layoutplaylistsH.xml", "layouts/Arcades/layoutplaylists.xml"
-      set_conf "controls.conf", HORIZONAL_CONF
+      set_value "controls.conf", HORIZONAL_CONF
     end
   end
 
@@ -192,7 +192,7 @@ class SecondScreenTheme < ConfigBase
     arcader_layout = config[:layout].gsub("Arcades", "Arcader")
     copy(arcader_layout, "layouts/Arcader/layout - 1.xml") if exist?(arcader_layout)
 
-    set_conf "settings.conf", "animateDuringGame = #{config[:animate] ? "true" : "false"}"
+    set_value "settings.conf", "animateDuringGame = #{config[:animate] ? "true" : "false"}"
   end
 
   def status
