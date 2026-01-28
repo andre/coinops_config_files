@@ -165,18 +165,6 @@ class ConfigBase
       "selected" => status ? new.status : ""
     }
   end
-
-  # get can an array of all Config classes (we do this by getting all the subclasses of ConfigBase)
-  def self.to_array
-    ConfigBase.subclasses.sort_by { |c| c.name }.map do |c|
-      {
-        "name" => c.name,
-        "description" => c.description,
-        "options" => c.options.transform_keys(&:to_s),
-        "default" => c.default
-      }
-    end
-  end
 end
 
 # Commands are different. All commands live in one class, and each command is a method. The Command class should inherit from this CommandBase class, 
@@ -184,7 +172,7 @@ end
 class CommandBase
   include ::Helpers
 
-  def self.to_array
+  def self.all
     descriptions = const_get(:DESCRIPTIONS)
     instance_methods(false).sort.map do |name|
       {"name" => name.to_s, "description" => descriptions[name]}
