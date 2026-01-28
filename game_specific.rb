@@ -85,3 +85,31 @@ class PlayersTwoFour < ConfigBase
     exist?("collections/Arcade/launchers/tmnt22pu.conf") ? "4p" : "2p"
   end
 end
+
+class RotaryJoysticks < ConfigBase
+  DESCRIPTION = "Enable rotary joystick controls for games like: Time Soldiers, T.N.K III, Victory Road, Forgotten Worlds, Guerrilla War, Heavy Barrel, Ikari Warriors, Midnight Resistance."
+  OPTIONS = {
+    enabled: "Use rotary joystick controls for these games.",
+    disabled: "Use standard controls for these games."
+  }
+  DEFAULT = "disabled"
+
+  def set(val)
+    case val
+    when "enabled"
+      %w[Arcade Arcade34 Arcade94 Arcade248].each do |collection|
+        copy_matching "autochanger/launchersROBOTRON/*", "collections/#{collection}/launchers"
+      end
+    when "disabled"
+      %w[Arcade Arcade34 Arcade94 Arcade248].each do |collection|
+        copy_matching "autochanger/launchersNONROBOTRON/*", "collections/#{collection}/launchers"
+      end
+    end
+  end
+
+  def status
+    files_equal?("collections/Arcade/launchers/timesold.conf", "autochanger/launchersROBOTRON/timesold.conf") ? "enabled" : "disabled"
+  rescue
+    DEFAULT
+  end
+end
