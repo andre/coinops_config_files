@@ -39,7 +39,7 @@ class MixTape < ConfigBase
   end
 end
 
-class MusicPlayer < ConfigBase
+class MixTapePlay < ConfigBase
   DESCRIPTION = "When do you want the Mixtape music to play? It can play in the game selection menu, during gameplay, both or neither."
   OPTIONS = {
     menu: "music is played in the game selection menu only.",

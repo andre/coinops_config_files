@@ -23,7 +23,7 @@ class SecondScreenControlsOverlay < ConfigBase
 end
 
 class SecondScreenMetadata < ConfigBase
-  DESCRIPTION = "Enable or disable metadata on the second screen. Metadata manufacturer and release year"
+  DESCRIPTION = "Enable or disable metadata on the second screen. Metadata includes manufacturer and release year"
   OPTIONS = {
     enabled: "Enable metadata overlay.",
     disabled: "Disable metadata overlay."
