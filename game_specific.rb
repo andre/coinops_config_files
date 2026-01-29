@@ -89,8 +89,8 @@ end
 class RotaryJoysticks < ConfigBase
   DESCRIPTION = "Enable rotary joystick controls for games like: Time Soldiers, T.N.K III, Victory Road, Forgotten Worlds, Guerrilla War, Heavy Barrel, Ikari Warriors, Midnight Resistance."
   OPTIONS = {
-    enabled: "Use rotary joystick controls for these games.",
-    disabled: "Use standard controls for these games."
+    'enabled': "Use rotary joystick controls for these games.",
+    'disabled': "Use standard controls for these games."
   }
   DEFAULT = "disabled"
 
@@ -109,7 +109,5 @@ class RotaryJoysticks < ConfigBase
 
   def status
     files_equal?("collections/Arcade/launchers/timesold.conf", "autochanger/launchersROBOTRON/timesold.conf") ? "enabled" : "disabled"
-  rescue
-    DEFAULT
   end
 end
