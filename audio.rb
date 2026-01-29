@@ -88,8 +88,8 @@ class MusicPlayer < ConfigBase
   end
 end
 
-class MenuGameSounds < ConfigBase
-  DESCRIPTION = "As the game menu shows previews of each game, do you want to hear the game sounds too? This can be enabled along with the Mixtape music in the menu (in fact that's the default)."
+class GamePreviewSound < ConfigBase
+  DESCRIPTION = "Do you want to hear game sounds along with video in the previews?"
   OPTIONS = {
     enabled: "You will hear sounds from the game previews as you scroll through the game list, and as the system sits idle.",
     disabled: "You will not hear any game sounds during the game previews."

@@ -132,14 +132,14 @@ class AttractModeFastScroll < ConfigBase
 
   def set(val)
     case val
-    when "enable"
+    when "enabled"
       remove "layouts/Arcades/attract.txt"
       set_value "settings.conf", '
         attractModeFast = yes
         attractModeMinTime = 1400
         attractModeMaxTime = 4600
       '
-    when "disable"
+    when "disabled"
       copy("autochanger/settings.txt", "layouts/Arcades/attract.txt")      
       set_value "settings.conf", '
         attractModeFast = no

@@ -92,7 +92,7 @@ class RotaryJoysticks < ConfigBase
     'enabled': "Use rotary joystick controls for these games.",
     'disabled': "Use standard controls for these games."
   }
-  DEFAULT = "disabled"
+  DEFAULT = "enabled"
 
   def set(val)
     case val
