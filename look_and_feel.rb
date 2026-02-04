@@ -256,11 +256,7 @@ class AttractModeDim < ConfigBase
   end
 
   def status
-    m1 = Digest::MD5.file(@@target).hexdigest
-    m2 = Digest::MD5.file("layouts/Arcades/images/attractDIM.png").hexdigest
-    (m1 == m2) ? "enabled" : "disabled"
-  rescue
-    "unknown"
+    files_equal?("layouts/Arcades/images/attractDIM.png", @@target) ? "enabled" : "disabled#"
   end
 end
 
