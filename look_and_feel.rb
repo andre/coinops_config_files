@@ -90,10 +90,10 @@ class AttractModeAutoscroll < ConfigBase
       # copy_stuff
       copy("autochanger/settings.txt", "layouts/Arcades/attract.txt")
       set_value "settings.conf", '
-        attractModeTime	= 185
+        attractModeTime	= 195
         attractModeNextTime = 195
       '
-    when "disable"
+    when "disabled"
       # copy_stuff
       remove "layouts/Arcades/attract.txt"
       set_value "settings.conf", '
