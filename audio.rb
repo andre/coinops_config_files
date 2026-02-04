@@ -1,5 +1,28 @@
+class GamePreviewSound < ConfigBase
+  DESCRIPTION = "Do you want to hear game sounds along with video in the previews?"
+  OPTIONS = {
+    enabled: "You will hear sounds from the game previews as you scroll through the game list, and as the system sits idle.",
+    disabled: "You will not hear any game sounds during the game previews."
+  }
+  DEFAULT = "enabled"
+
+  def set(val)
+    case val
+    when "enabled"
+      set_value "settings.conf", "MuteVideo = no"
+    when "disabled"
+      set_value "settings.conf", "MuteVideo = yes"
+    end
+  end
+
+  def status
+    val = get_value("settings.conf", "MuteVideo").downcase 
+    val == "no" ? "enabled" : "disabled"
+  end
+end
+
 class MixTape < ConfigBase
-  DESCRIPTION = "What list of songs to play during attract mode. All tracks are curated by the CoinOps team!"
+  DESCRIPTION = "What list of songs to play during attract mode. Tracks are curated by the CoinOPS team."
   OPTIONS = {
     default: "Africa, Eye of the Tiger, Man in the Mirror",
     glam: "Here I Go Again, Living on a Prayer, Rocket",
@@ -88,24 +111,4 @@ class MixTapePlay < ConfigBase
   end
 end
 
-class GamePreviewSound < ConfigBase
-  DESCRIPTION = "Do you want to hear game sounds along with video in the previews?"
-  OPTIONS = {
-    enabled: "You will hear sounds from the game previews as you scroll through the game list, and as the system sits idle.",
-    disabled: "You will not hear any game sounds during the game previews."
-  }
-  DEFAULT = "enabled"
 
-  def set(val)
-    case val
-    when "enabled"
-      set_value "settings.conf", "MuteVideo = no"
-    when "disabled"
-      set_value "settings.conf", "MuteVideo = yes"
-    end
-  end
-
-  def status
-    ((get_value("settings.conf", "MuteVideo") || "").downcase == "no") ? "enabled" : "disabled"
-  end
-end
