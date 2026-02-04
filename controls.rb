@@ -20,10 +20,11 @@ class ControllerType < ConfigBase
   end
 
   def status
-    return "arcade" if files_equal?(SAMPLE_CFG, "emulators/mame/cfgSFarcadestick/dstlk.cfg")
-    "gamepad" if files_equal?(SAMPLE_CFG, "emulators/mame/cfgSFcontroller/dstlk.cfg")
-  rescue Errno::ENOENT
-    "gamepad"
+    if files_equal?(SAMPLE_CFG, "emulators/mame/cfgSFarcadestick/dstlk.cfg")
+      return "arcade" 
+    else
+      return "gamepad" 
+    end
   end
 end
 

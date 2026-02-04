@@ -159,12 +159,13 @@ end
 class GameMetadataDisplay < ConfigBase
   DESCRIPTION = "With this setting you can see metadata about each game (manufacturer, year, control type, number of players) displayed on the game selection menu. There are options for how much metadata to show, and where it appears on the screen. Note this setting applies to the MAIN screen (there are other settings for the 2nd/marquee screen if you have one)."
   OPTIONS = {
+    none: "Do not show any game metadata.",
     some: "Just the manufacturer and year, displayed at the lower left of the game menu.",
     more: "Manufacturer, year, and control type (4-way/8-way joystick), displayed at the lower left of the game menu.",
     all_top: "Full metadata (manufacturer, year, control type, # players) displayed at the top right of the game menu.",
     all_bottom: "Full metadata (manufacturer, year, control type, # players) displayed at the bottom right of the game menu."
   }
-  DEFAULT = "some"
+  DEFAULT = "none"
 
   LAYOUTS = {
     "some" => "layouts/Arcades/layout - 6_0.xml",
@@ -177,17 +178,21 @@ class GameMetadataDisplay < ConfigBase
     case val
     when "some", "more", "all_top", "all_bottom"
       copy LAYOUTS[val], "layouts/Arcades/layout - 6.xml"
+    when "none"
+      remove "layouts/Arcades/layout - 6.xml"  
     end
   end
 
   def status
     layout = "layouts/Arcades/layout - 6.xml"
+    return "none" if !exist?(layout)
+
     LAYOUTS.each do |key, path|
       return key if files_equal?(layout, path)
     rescue Errno::ENOENT
       next
     end
-    "some"
+    
   end
 end
 
@@ -317,13 +322,13 @@ class BezelSwitcher < ConfigBase
 
   def status
     first_cfg = Dir.glob("emulators/mame/viewswitch/*.cfg").first
-    if !first_cfg || get_value("emulators/mame/pluginViewSwitchOn.ini", "viewswitch") == "0"
+    if !first_cfg || get_value("emulators/mame/plugin.ini", "viewswitch") == "0"
       "disabled"
     else
       cfg_contents = File.read(first_cfg)
       if cfg_contents.include?("JOYCODE")
         "gamepad"
-      elsif cfg_contents.include?("KEYBOARD")
+      elsif cfg_contents.include?("KEYCODE")
         "keyboard"
       end
     end
