@@ -185,14 +185,12 @@ class GameMetadataDisplay < ConfigBase
 
   def status
     layout = "layouts/Arcades/layout - 6.xml"
-    return "none" if !exist?(layout)
-
-    LAYOUTS.each do |key, path|
-      return key if files_equal?(layout, path)
-    rescue Errno::ENOENT
-      next
+    if exist?(layout)
+      LAYOUTS.each do |key, path|
+        return key if files_equal?(layout, path)
+      end
     end
-    
+    "none"
   end
 end
 
@@ -223,16 +221,10 @@ class TimeAndDateDisplay < ConfigBase
 
   def status
     if exist?(@@target)
-      if files_equal?(@@target, "layouts/Arcades/layout - 5_1.xml")
-        "datetime"
-      elsif files_equal?(@@target, "layouts/Arcades/layout - 5_3.xml")
-        "time"
-      else
-        "disabled"
-      end
-    else
-      "disabled"
+      return "datetime" if files_equal?(@@target, "layouts/Arcades/layout - 5_1.xml")
+      return "time" if files_equal?(@@target, "layouts/Arcades/layout - 5_3.xml")
     end
+    return "disabled"
   end
 end
 
@@ -256,7 +248,7 @@ class AttractModeDim < ConfigBase
   end
 
   def status
-    files_equal?("layouts/Arcades/images/attractDIM.png", @@target) ? "enabled" : "disabled#"
+    files_equal?("layouts/Arcades/images/attractDIM.png", @@target) ? "enabled" : "disabled"
   end
 end
 
@@ -279,8 +271,6 @@ class WallThemesVideos < ConfigBase
 
   def status
     files_equal?("layouts/Arcades/layout - 2 Reflection.xml", "autochanger/WallsGameplay/layout - 2 Reflection.xml") ? "gameplay" : "attract"
-  rescue
-    "unknown"
   end
 end
 
@@ -437,7 +427,7 @@ class Scanlines < ConfigBase
     raster = "emulators/mame/ini/presets/raster.ini"
     return "normal" if files_equal?(raster, "autochanger/CRTcurve.ini")
     return "blooming" if files_equal?(raster, "autochanger/CRTcurveGlow.ini")
-    "disabled" if files_equal?(raster, "autochanger/CRTsharp.ini")
+    return "disabled" if files_equal?(raster, "autochanger/CRTsharp.ini")
   end
 end
 
