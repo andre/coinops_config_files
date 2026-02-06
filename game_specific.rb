@@ -101,3 +101,26 @@ class RotaryJoysticks < ConfigBase
     files_equal?("collections/Arcade/launchers/timesold.conf", "autochanger/launchersROBOTRON/timesold.conf") ? "enabled" : "disabled"
   end
 end
+
+class OnlyArcadeGames < ConfigBase
+  DESCRIPTION = "Should game lists be limited to arcade games only, or include both arcade and console games?"
+  OPTIONS = {
+    'arcade_and_console': "Include both arcade and console games in lists.",
+    'arcade_only': "Limit lists to arcade games only (excludes console games)."
+  }
+  DEFAULT = "arcade_and_console"
+
+  def set(val)
+    case val
+    when "arcade_and_console"
+      remove "collections/Arcade/exclude.txt"      
+    when "arcade_only"
+      copy "collections/Arcade/excludeconsoles.txt", "collections/Arcade/exclude.txt"
+    end
+  end
+
+  def status
+    raise "Exclude File is Missing" unless exist?("collections/Arcade/excludeconsoles.txt") # this will prevent the option from showing when inapplcicable
+    exist?("collections/Arcade/exclude.txt") ? "arcade_only" : "arcade_and_console"
+  end
+end
