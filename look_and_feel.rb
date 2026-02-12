@@ -45,6 +45,7 @@ end
 class AttractModeAutoscroll < ConfigBase
   DESCRIPTION = "Whether or not to scroll among games when the system sits idle - and if so, how long to wait before scrolling to the next game. If disabled, it will stay on the current game indefinitely."
   OPTIONS = {
+    "20": "Scroll to a new game every 20 seconds",
     "30": "Scroll to a new game every 30 seconds",
     "60": "Scroll to a new game every 60 seconds",
     "90": "Scroll to a new game every 90 seconds",
@@ -56,6 +57,12 @@ class AttractModeAutoscroll < ConfigBase
 
   def set(val)
     case val
+    when "20"
+      remove("layouts/Arcades/attract.txt")
+      set_value "settings.conf", '
+        attractModeTime = 20
+        attractModeNextTime = 20
+      '      
     when "30"
       # copy_stuff
       remove("layouts/Arcades/attract.txt")
@@ -64,37 +71,31 @@ class AttractModeAutoscroll < ConfigBase
         attractModeNextTime = 30
       '
     when "60"
-      # copy_stuff
       remove "layouts/Arcades/attract.txt"
       set_value "settings.conf", '
         attractModeTime	= 60
         attractModeNextTime = 60
       '
     when "90"
-      # copy_stuff
       remove "layouts/Arcades/attract.txt"
-      # in the bat files, we remove settings1.conf entirely to make the settings.conf settings take effect.
-      # It's clearer to just set the values explicitly here.
       set_value "settings.conf", '
         attractModeTime	= 90
         attractModeNextTime = 90
       '
     when "120"
-     #  copy_stuff
       remove "layouts/Arcades/attract.txt"
       set_value "settings.conf", '
         attractModeTime	= 120
         attractModeNextTime = 120
       '
     when "195"
-      # copy_stuff
+      # TODO: Why is the "copy" needed? I took the "copy" from the .bat files, but it's unclear why it's needed ONLY in the 195 case. 
       copy("autochanger/settings.txt", "layouts/Arcades/attract.txt")
       set_value "settings.conf", '
         attractModeTime	= 195
         attractModeNextTime = 195
       '
     when "disabled"
-      # copy_stuff
       remove "layouts/Arcades/attract.txt"
       set_value "settings.conf", '
       attractModeTime	= 0
