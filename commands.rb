@@ -1,19 +1,12 @@
 class Commands < CommandBase
   DESCRIPTIONS = {
-    remove_settings_overlays: "Removes any settings and controls conf files that can override the main configuration files. Useful for transitioning away from old .bat files, which used settingsX.conf and controlsX.conf files to override main settings. This system now updates the main settings.conf file directly, so these override files can cause confusion.",
     fix_coinops: "DEVELOPMENT IN PROGRESS: swap in known good templates and files to attempt to reset CoinOps to a known good state.",
-    mame_screen_cycle: "DEVELOPMENT IN PROGRESS: Cycle MAME's screen setting through detected monitors.",
     clear_favorites: "Clear the list of favorite games.",
     reset_favorites: "Reset favorite games to a CoinOps-supplied default list.",
     reset_last_played: "CoinOps comes with baked-in 'last played' lists. This resets them to original values.",
     reset_mame: "DEVELOPMENT IN PROGRESS: Copy in known good version mame.ini, and other resets to make MAME nice and fresh.",
     copy_retro_pc_logos: "Moves logos from RetroPC folders into a place they are needed for the main menu. Use this if you've created or unpacked an addon in the RetroPC folder."
   }
-  def remove_settings_overlays
-      # Remove any settings and controls confs that can override the main files
-    (1..15).each { |i| remove "settings#{i}.conf" }
-    (1..9).each { |i| remove "controls#{i}.conf" }
-  end
 
   # Reset EVERYTHING to known good defaults
   def fix_coinops
@@ -121,47 +114,6 @@ class Commands < CommandBase
       copy "collections/zzzSettings/medium_artwork/#{folder}/zz Split Consoles Off.png",
         "collections/zzzSettings/medium_artwork/#{folder}/zz Split Consoles.png"
     end
-  end
-
-  def mame_screen_cycle
-    mame_ini = "emulators/mame/mame.ini"
-    mame_exe = "emulators/mame/mame64.exe"
-    raise "mame64.exe not found at #{mame_exe}" unless exist?(mame_exe)
-    raise "mame.ini not found at #{mame_ini}" unless exist?(mame_ini)
-    current_screen = get_value(mame_ini, "screen") || "auto"
-    monitors = []
-    marker_seen = false
-    io = IO.popen([mame_exe, "-v", "-video", "none"], err: [:child, :out])
-    begin
-      io.each_line do |line|
-        if line.include?("Video: Monitor")
-          raw = line.split("=").last.to_s.strip.delete('"')
-          name = raw.split.first
-          monitors << name if name && !name.empty?
-        end
-        if line.include?("Starting No Driver Loaded")
-          marker_seen = true
-          break
-        end
-      end
-    ensure
-      begin
-        Process.kill("KILL", io.pid)
-      rescue
-        nil
-      end
-      begin
-        Process.wait(io.pid)
-      rescue
-        nil
-      end
-    end
-    raise "No displays found from mame -v output" if monitors.empty?
-    raise 'Did not detect "Starting No Driver Loaded" from mame -v output' unless marker_seen
-    current_screen = monitors.first if current_screen == "auto"
-    index = monitors.index(current_screen) || 0
-    next_screen = monitors[(index + 1) % monitors.length]
-    set_value mame_ini, "screen  #{next_screen}"
   end
 
   def clear_favorites

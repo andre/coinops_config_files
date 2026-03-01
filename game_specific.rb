@@ -1,4 +1,4 @@
-class LaserDiscGameArrows < ConfigBase
+class LaserDiskGameArrows < ConfigBase
   DESCRIPTION = "Show in-game helper arrows for Dragon's Lair and Space Ace (and potentially other laser disk in the future). When enabled, you'll see the specific move you need to make flashed on the screen."
   OPTIONS = {
     enabled: "Show the arrows (makes games much easier).",
@@ -9,17 +9,15 @@ class LaserDiscGameArrows < ConfigBase
   def set(val)
     case val
     when "enabled"
-      copy "collections/Arcade/launchers/Dragons Lair with Helper.conf", "collections/Arcade/launchers/Dragons Lair.conf"
-      copy "collections/Arcade/launchers/Space Ace with Helper.conf", "collections/Arcade/launchers/Space Ace.conf"
+      set_value "emulators/Hypseus Singe/ram/singe/dragons_lair_1080/Cfg/game.cfg", "dip_ShowAction = 1"      
     when "disabled"
-      copy "collections/Arcade/launchers/Dragons Lair no Helper.conf", "collections/Arcade/launchers/Dragons Lair.conf"
-      copy "collections/Arcade/launchers/Space Ace no Helper.conf", "collections/Arcade/launchers/Space Ace.conf"
+      set_value "emulators/Hypseus Singe/ram/singe/dragons_lair_1080/Cfg/game.cfg", "dip_ShowAction = 0" 
     end
   end
 
   def status
-    dragons_helper = files_equal?("collections/Arcade/launchers/Dragons Lair.conf", "collections/Arcade/launchers/Dragons Lair with Helper.conf")
-    dragons_helper ? "enabled" : "disabled"
+    value = get_value("emulators/Hypseus Singe/ram/singe/dragons_lair_1080/Cfg/game.cfg", "dip_ShowAction")
+    value == "1" ? "enabled" : "disabled"
   end
 end
 

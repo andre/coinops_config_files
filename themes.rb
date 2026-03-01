@@ -170,7 +170,7 @@ class SecondScreenTheme < ConfigBase
 
   LAYOUTS = {
     "animated_swipe_16x9_fire" => {layout: "layouts/Arcades/layout 2nd animated screen - Animated 16x9.xml", animate: true},
-    "animated_swipe_16x9" => {layout: "layouts/Arcades/layout 2nd animated screen - Animated 16x9 No Fire.xml", animate: true},
+    "animated_swipe_16x9" => {layout: "layouts/Arcades/layout 2nd animated screen - Animated 16x9 no Fire.xml", animate: true},
     "animated_swipe_thin" => {layout: "layouts/Arcades/layout 2nd animated screen - Animated.xml", animate: true},
     "animated_fade_16x9_fire" => {layout: "layouts/Arcades/layout 2nd animated screen CF - Animated 16x9.xml", animate: true},
     "animated_fade_16x9" => {layout: "layouts/Arcades/layout 2nd animated screen CF - Animated 16x9 no Fire.xml", animate: true},

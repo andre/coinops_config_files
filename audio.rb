@@ -36,13 +36,13 @@ class MixTape < ConfigBase
   def set(val)
     case val
     when "default"
-      set_value "settings.conf", %q[musicPlayer.folder = .\music\MixTape (ARISE)]
+      set_value "settings.conf", %q[musicPlayer.folder = ./music/MixTape (ARISE)]
     when "glam"
-      set_value "settings.conf", %q[musicPlayer.folder = .\music\MixTAPE (Glam Rock)]
+      set_value "settings.conf", %q[musicPlayer.folder = ./music/MixTape (Glam Rock)]
     when "beats"
-      set_value "settings.conf", %q[musicPlayer.folder = .\music\MixTAPE (Beats)]
+      set_value "settings.conf", %q[musicPlayer.folder = ./music/MixTape (Beats)]
     when "80s"
-      set_value "settings.conf", %q[musicPlayer.folder = .\music\MixTAPE (The 80s)]
+      set_value "settings.conf", %q[musicPlayer.folder = ./music/MixTape (The 80s)]
     end
   end
 
