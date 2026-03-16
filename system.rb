@@ -1,5 +1,6 @@
 class SingleMonitor < ConfigBase
   DESCRIPTION = "With this setting, you can constrain CoinOps to use only a single monitor, even if multiple monitors are connected. This is useful when you have multiple monitors but only want CoinOps to display on one of them, leaving the other(s) free for other purposes."
+  APPLY = :retrofe_restart
   OPTIONS = {
     enabled: "CoinOps will only use a single monitor, even if multiple monitors are connected.",
     disabled: "CoinOps will use multiple connected monitors if available. Secondary monitors will be taken over by CoinOps when running."
@@ -22,6 +23,7 @@ end
 
 class ZeroDelayEncoder < ConfigBase
   DESCRIPTION = "Makes a couple targeted adjustments to the system to work better with 'Zero Delay' controllers. This applies primarily to custom cabinet builds. If you have a standard XBox-type controller, or don't recognize 'Zero Delay', you can leave this configuration alone."
+  APPLY = :retrofe_restart
   OPTIONS = {
     enabled: "Works with 'Zero Delay' USB encoders.",
     disabled: "Works with kinds of controller interfaces, like PactoTech, Ipac, and most XInput controllers."
@@ -49,6 +51,7 @@ end
 # TODO: when would you recommend hardware acceleration be enabled?
 class MenuHardwareAcceleration < ConfigBase
   DESCRIPTION = "Enable or disable hardware acceleration for the front end."
+  APPLY = :retrofe_restart
   OPTIONS = {
     enabled: "Turn on hardware acceleration. ",
     disabled: "Turn off hardware acceleration."
@@ -71,6 +74,7 @@ end
 
 class MenuFPS < ConfigBase
   DESCRIPTION = "Set the Frames Per Second for the front end. Higher FPS will look smoother but consume more resources."
+  APPLY = :retrofe_restart
   OPTIONS = {
     "30": "Run the menu at 30 FPS.",
     "60": "Run the menu at 60 FPS.",
@@ -89,6 +93,7 @@ end
 
 class MenuFPSIdle < ConfigBase
   DESCRIPTION = "Set the Frames Per Second while the front end is idle."
+  APPLY = :retrofe_restart
   OPTIONS = {
     "30": "Limit idle frame rate to 30 FPS.",
     "60": "Limit idle frame rate to 60 FPS."
@@ -107,6 +112,7 @@ end
 # TODO: When would you advise someone to use opengl?
 class VideoRendering < ConfigBase
   DESCRIPTION = "Choose the video renderer for the menu system."
+  APPLY = :retrofe_restart
   OPTIONS = {
     direct3d11: "Use the DirectX 11 renderer (modern default).",
     opengl: "Use the legacy renderer from the Direct3D/GL profile."

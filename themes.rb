@@ -1,5 +1,6 @@
 class MainScreenTheme < ConfigBase
   DESCRIPTION = "Change the main theme layout."
+  APPLY = :retrofe_reload
   OPTIONS = {
     arcade: "Arcade (no logo)!!!",
     arcade_logo: "Arcade with logo.",
@@ -202,6 +203,7 @@ end
 
 class SecondScreenTheme < ConfigBase
   DESCRIPTION = "Configure the second screen marquee layout."
+  APPLY = :retrofe_reload
   OPTIONS = {
     "animated_swipe_16x9_fire" => "Animated marquee on a 16x9 screen with fire backdrop.",
     "animated_swipe_16x9" => "Animated marquee on a 16x9 screen without fire backdrop.",

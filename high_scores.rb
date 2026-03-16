@@ -1,5 +1,6 @@
 class HighScores < ConfigBase
   DESCRIPTION = "Control high score display on the main screen. Note, you can have high scores one the main screen or the second screen, but not both."
+  APPLY = :retrofe_reload
   OPTIONS = {
     disabled: "Hide high scores.",
     dynamic_iscored_cycle: "iScored cycles on/off.",
@@ -56,6 +57,7 @@ end
 
 class HighScoresSecondScreen < ConfigBase
   DESCRIPTION = "Control high score display on the second screen. Note, you can have high scores one the main screen or the second screen, but not both."
+  APPLY = :retrofe_reload
   OPTIONS = {
     disabled: "Hide high scores.",
     dynamic_iscored_cycle: "iScored cycles on/off on 2nd display.",

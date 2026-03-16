@@ -1,5 +1,6 @@
 class LaserDiskGameArrows < ConfigBase
   DESCRIPTION = "Show in-game helper arrows for Dragon's Lair and Space Ace (and potentially other laser disk in the future). When enabled, you'll see the specific move you need to make flashed on the screen."
+  APPLY = :emulator
   OPTIONS = {
     enabled: "Show the arrows (makes games much easier).",
     disabled: "Don't show the arrows (makes games harder, but more authentic to the original experience)."
@@ -24,6 +25,7 @@ end
 # TODO: What's the gist of the different ROM sets?
 class CPS2MarvelRoms < ConfigBase
   DESCRIPTION = "Choose which CPS2 Marvel ROM set to Use."
+  APPLY = :emulator
   OPTIONS = {
     standard: "Use the standard CPS2 Marvel ROMs.",
     boss: "Use the boss-hack CPS2 Marvel ROMs."
@@ -46,6 +48,7 @@ end
 
 class PlayersTwoFour < ConfigBase
   DESCRIPTION = "For a handful of specific games, launch 4-player versions or 2-player versions. You should only set to 4-player if you have a cabinet or setup with enough controllers. The games are: tmnt22pu tmnt2po ssridersabd simpsons2p centiped."
+  APPLY = :emulator
   OPTIONS = {
     "2p": "Use 2-player versions of these specific games.",
     "4p": "Use 4-player versions of these specific games. Only use if you have enough controllers."
@@ -76,6 +79,7 @@ end
 
 class RotaryJoysticks < ConfigBase
   DESCRIPTION = "Enable rotary joystick controls for games like: Time Soldiers, T.N.K III, Victory Road, Forgotten Worlds, Guerrilla War, Heavy Barrel, Ikari Warriors, Midnight Resistance."
+  APPLY = :emulator
   OPTIONS = {
     'enabled': "Use rotary joystick controls for these games.",
     'disabled': "Use standard controls for these games."
@@ -102,6 +106,7 @@ end
 
 class OnlyArcadeGames < ConfigBase
   DESCRIPTION = "Should game lists be limited to arcade games only, or include both arcade and console games?"
+  APPLY = :emulator
   OPTIONS = {
     'arcade_and_console': "Include both arcade and console games in lists.",
     'arcade_only': "Limit lists to arcade games only (excludes console games)."

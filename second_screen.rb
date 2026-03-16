@@ -1,5 +1,6 @@
 class SecondScreenControlsOverlay < ConfigBase
   DESCRIPTION = "Toggle second screen controls overlay. This overlay shows controls (what buttons do, etc). Only for MAME games currently!"
+  APPLY = :retrofe_reload
   OPTIONS = {enabled: "Enable overlay.", disabled: "Disable overlay."}
   DEFAULT = "disabled"
 
@@ -21,6 +22,7 @@ end
 
 class SecondScreenMetadata < ConfigBase
   DESCRIPTION = "Enable or disable metadata on the second screen. Metadata includes manufacturer and release year."
+  APPLY = :retrofe_reload
   OPTIONS = {
     enabled: "Enable metadata overlay.",
     disabled: "Disable metadata overlay."
@@ -48,6 +50,7 @@ end
 
 class SecondScreenTimeDisplay < ConfigBase
   DESCRIPTION = "Configure time/date overlay on the second screen."
+  APPLY = :retrofe_reload
   OPTIONS = {
     time: "Show the current time only.",
     datetime: "Show both the current time and date.",

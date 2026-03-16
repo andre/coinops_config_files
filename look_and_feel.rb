@@ -1,5 +1,6 @@
 class AttractModeJoystick < ConfigBase
   DESCRIPTION = "Whether or not to show an animated joystick graphic in the game menus when idle. If enabled, the joystick will show every 30 seconds."
+  APPLY = :retrofe_reload
   OPTIONS = {
     enabled: "Enable the animated joystick graphic",
     disabled: "Disable the animated joystick graphic"
@@ -22,6 +23,7 @@ end
 # Old settings file: settings4.conf
 class StartPosition < ConfigBase
   DESCRIPTION = "What do you want CoinOps to show when it first starts up?"
+  APPLY = :retrofe_restart
   OPTIONS = {
     random: "Starts on a random game, on a random playlist",
     consistent: "Always starts on the same game. Which game that is depends on how you're starting CoinOps (with or without playlists, consoles enabled, etc). With this setting, you can also go into settings.conf and specify a particular starting playlist."
@@ -44,6 +46,7 @@ end
 
 class AttractModeAutoscroll < ConfigBase
   DESCRIPTION = "Whether or not to scroll among games when the system sits idle - and if so, how long to wait before scrolling to the next game. If disabled, it will stay on the current game indefinitely."
+  APPLY = :retrofe_restart
   OPTIONS = {
     "20": "Scroll to a new game every 20 seconds",
     "30": "Scroll to a new game every 30 seconds",
@@ -125,6 +128,7 @@ end
 
 class AttractModeFastScroll < ConfigBase
   DESCRIPTION = "TODO: What does attractModeFast do?"
+  APPLY = :retrofe_restart
   OPTIONS = {
     "enabled": "Fast mode enabled",
     "disabled": "Fast mode disabled"
@@ -159,6 +163,7 @@ end
 
 class GameMetadataDisplay < ConfigBase
   DESCRIPTION = "With this setting you can see metadata about each game (manufacturer, year, control type, number of players) displayed on the game selection menu. There are options for how much metadata to show, and where it appears on the screen. Note this setting applies to the MAIN screen (there are other settings for the 2nd/marquee screen if you have one)."
+  APPLY = :retrofe_reload
   OPTIONS = {
     none: "Do not show any game metadata.",
     some: "Just the manufacturer and year, displayed at the lower left of the game menu.",
@@ -201,6 +206,7 @@ end
 # layouts/Arcades/layout - 5_4.xml -- time only (2nd screen)
 class TimeAndDateDisplay < ConfigBase
   DESCRIPTION = "Display the current time and date on the game menu."
+  APPLY = :retrofe_reload
   OPTIONS = {
     time: "Show the current time only.",
     datetime: "Show both the current time and date.",
@@ -231,6 +237,7 @@ end
 
 class AttractModeDim < ConfigBase
   DESCRIPTION = "When enabled, the screen will dim slightly as attract mode starts autostcolling through games."
+  APPLY = :retrofe_reload
   OPTIONS = {
     enabled: "The screen will dim slightly when the system is idle and begins autostcolling through games.",
     disabled: "The screen will stay at full brightness when the system is idle."
@@ -255,6 +262,7 @@ end
 
 class WallThemesVideos < ConfigBase
   DESCRIPTION = "Toggle wall themes between attract-mode videos and gameplay videos."
+  APPLY = :retrofe_reload
   OPTIONS = {
     gameplay: "Use gameplay variants of wall themes.",
     attract: "Use attract-mode variants of wall themes."
@@ -277,6 +285,7 @@ end
 
 class BezelSwitcher < ConfigBase
   DESCRIPTION = "With MAME games, you can switch bezels in-game."
+  APPLY = :emulator
   OPTIONS = {
     gamepad: "Click your gamepad's left AND right thumbsticks at the same time to switch bezels in-game.",
     keyboard: "Z and X keys switch bezels in-game",
@@ -334,6 +343,7 @@ end
 
 class ScreenGlass < ConfigBase
   DESCRIPTION = "Choose the bezel glass effect."
+  APPLY = :emulator
   OPTIONS = {
     disabled: "Standard glass-less bezels.",
     scuffed: "Scuffed glass look.",
@@ -394,6 +404,7 @@ end
 
 class Scanlines < ConfigBase
   DESCRIPTION = "Scanlines provide an analog, retro look to gameplay. This affects when you're actually playing the game, not the game menu."
+  APPLY = :emulator
   OPTIONS = {
     normal: "Standard scanline shaders.",
     blooming: "Blooming scanlines and glow presets.",
@@ -434,6 +445,7 @@ end
 
 class BezelStyle < ConfigBase
   DESCRIPTION = "This is an in-game setting. Choose your preferred bezel style for MAME games."
+  APPLY = :emulator
   OPTIONS = {
     artwork: "Bezels have unique art for each game. Reflections work with this bezel style.",
     uniform: "One uniform retro gray bezel for all games. Reflections work with this bezel style.",
@@ -466,6 +478,7 @@ end
 
 class BezelCropping < ConfigBase
   DESCRIPTION = "This applies only to games with horizontally oriented screens. It controls whether the gameplay expands to take up as much of the screen as possible (that's bezel cropping), or whether the gameplay is a bit smaller so the bezel artwork is visible in its entirety (that's 'full' bezel)."
+  APPLY = :emulator
   OPTIONS = {
     full: "The entire bezel is visible, and the game screen is slightly smaller to make room for the bezel. Use this if you want to see the entire bezel graphic.",
     cropped: "The game screen is maximized, so less of the bezel is visible. The bezel is also darker in this variation, since emphasis is on the game itself."
@@ -527,6 +540,7 @@ end
 
 class BezelReflectivity < ConfigBase
   DESCRIPTION = "When enabled, you'll see a subtle reflection around the edge of the 'screen' while playing a game. It's only noticeable when game graphics extend to the edges of the screen."
+  APPLY = :emulator
   OPTIONS = {
     enabled: "The bezel shows a subtile reflection of graphics on the game screen.",
     disabled: "No reflection is visible."

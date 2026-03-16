@@ -1,5 +1,6 @@
 class ControllerType < ConfigBase
   DESCRIPTION = "What kind of controller are you using? 'Arcade' is for cabinets with an arcade joystick and buttons. 'Gamepad' is for handheld controllers like Xbox or 8Bitdo."
+  APPLY = :emulator
   OPTIONS = {
     arcade: "For cabinets with an arcade joystick and buttons.",
     gamepad: "For handheld controllers like Xbox or 8Bitdo."
@@ -31,6 +32,7 @@ end
 # Old settings file: settings12.conf
 class QuitCoinops < ConfigBase
   DESCRIPTION = "Quit CoinOps via a controller button combo, or require using the ESC key on a keyboard."
+  APPLY = :retrofe_restart
   OPTIONS = {
     keyboard: "You can only exit CoinOps by pressing a key ('escape' by default) on an attached keyboard",
     kb_or_gamepad: "You can exit CoinOps with 'escape' on a keyboard, or by pressing Start + Select on your controller."

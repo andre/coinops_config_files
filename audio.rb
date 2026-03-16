@@ -1,5 +1,6 @@
 class GamePreviewSound < ConfigBase
   DESCRIPTION = "Do you want to hear game sounds along with video in the previews?"
+  APPLY = :retrofe_restart
   OPTIONS = {
     enabled: "You will hear sounds from the game previews as you scroll through the game list, and as the system sits idle.",
     disabled: "You will not hear any game sounds during the game previews."
@@ -23,6 +24,7 @@ end
 
 class MixTape < ConfigBase
   DESCRIPTION = "What list of songs to play during attract mode. Tracks are curated by the CoinOPS team."
+  APPLY = :retrofe_restart
   OPTIONS = {
     default: "Africa, Eye of the Tiger, Man in the Mirror",
     glam: "Here I Go Again, Living on a Prayer, Rocket",
@@ -64,6 +66,7 @@ end
 
 class MixTapePlay < ConfigBase
   DESCRIPTION = "When do you want the Mixtape music to play? It can play in the game selection menu, during gameplay, both or neither."
+  APPLY = :retrofe_restart
   OPTIONS = {
     menu: "music is played in the game selection menu only.",
     game: "music is played during gameplay only.",
