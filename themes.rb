@@ -3,11 +3,15 @@ class MainScreenTheme < ConfigBase
   OPTIONS = {
     arcade: "Arcade (no logo)!!!",
     arcade_logo: "Arcade with logo.",
+    alaska: "Alaska theme.",
+    aura: "Aura theme.",
+    cabinet: "Cabinet theme.",
     gameplay: "Gameplay (no logo).",
     gameplay_logo: "Gameplay with logo.",
     legends: "Legends theme.",
     lights: "Lights theme.",
     marquee: "Marquee theme.",
+    marquees: "Marquees theme.",
     reflection: "Reflection theme.",
     spin: "Full spin theme.",
     vertical: "Vertical theme.",
@@ -15,7 +19,21 @@ class MainScreenTheme < ConfigBase
     wheel: "Wheel theme.",
     wheeler: "Wheeler theme.",
     crossfade: "Crossfade theme.",
-    crossfade_gameplay: "Crossfade gameplay theme."
+    crossfade_gameplay: "Crossfade gameplay theme.",
+    deluxe_80s: "Deluxe 80s theme.",
+    deluxe_90s: "Deluxe 90s theme.",
+    deluxe_arcade: "Deluxe arcade theme.",
+    deluxe_cabinet: "Deluxe cabinet theme.",
+    deluxe_evolution: "Deluxe evolution theme.",
+    deluxe_marquee: "Deluxe marquee theme.",
+    deluxe_poster: "Deluxe poster theme.",
+    deluxe_slider: "Deluxe slider theme.",
+    deluxe_spin: "Deluxe spin theme.",
+    deluxe_spinner: "Deluxe spinner theme.",
+    deluxe_wheeler: "Deluxe wheeler theme.",
+    quick_spin_cabinet: "Quick spin cabinet theme.",
+    quick_spin_evolution: "Quick spin evolution theme.",
+    quick_spin_wheeler: "Quick spin wheeler theme."
   }
   DEFAULT = "wheeler"
 
@@ -40,80 +58,94 @@ class MainScreenTheme < ConfigBase
   def set(val)
     case val
     when "arcade"
-      copy "layouts/Arcades/layout - 2 Attract.xml", "layouts/Arcades/layout - 0.xml"
-      copy "layouts/Arcades/layout - 0 No Logo.xml", "layouts/Arcades/layout - 2.xml"
-      copy "layouts/Arcades/layoutplaylistsH.xml", "layouts/Arcades/layoutplaylists.xml"
-      set_value "controls.conf", HORIZONAL_CONF
+      apply_theme layout: "layouts/Arcades/layout - 2 Attract.xml"
     when "arcade_logo"
-      copy "layouts/Arcades/layout - 2 Attract.xml", "layouts/Arcades/layout - 0.xml"
-      copy "layouts/Arcades/layout - 0 Logo.xml", "layouts/Arcades/layout - 2.xml"
-      copy "layouts/Arcades/layoutplaylistsH.xml", "layouts/Arcades/layoutplaylists.xml"
-      set_value "controls.conf", HORIZONAL_CONF
+      apply_theme layout: "layouts/Arcades/layout - 2 Attract.xml",
+        logo: "layouts/Arcades/layout - 0 Logo.xml"
+    when "alaska"
+      apply_theme layout: "layouts/Arcades/layout - 2 Alaska.xml"
+    when "aura"
+      apply_theme layout: "layouts/Arcades/layout - 2 Aura.xml"
+    when "cabinet"
+      apply_theme layout: "layouts/Arcades/layout - 2 Cab.xml", vertical: true
     when "gameplay"
-      copy "layouts/Arcades/layout - 2 Gameplay.xml", "layouts/Arcades/layout - 0.xml"
-      copy "layouts/Arcades/layout - 0 No Logo.xml", "layouts/Arcades/layout - 2.xml"
-      copy "layouts/Arcades/layoutplaylistsH.xml", "layouts/Arcades/layoutplaylists.xml"
-      set_value "controls.conf", HORIZONAL_CONF
+      apply_theme layout: "layouts/Arcades/layout - 2 Gameplay.xml"
     when "gameplay_logo"
-      copy "layouts/Arcades/layout - 2 Gameplay.xml", "layouts/Arcades/layout - 0.xml"
-      copy "layouts/Arcades/layout - 0 Logo.xml", "layouts/Arcades/layout - 2.xml"
-      copy "layouts/Arcades/layoutplaylistsH.xml", "layouts/Arcades/layoutplaylists.xml"
-      set_value "controls.conf", HORIZONAL_CONF
+      apply_theme layout: "layouts/Arcades/layout - 2 Gameplay.xml",
+        logo: "layouts/Arcades/layout - 0 Logo.xml"
     when "legends"
-      copy "layouts/Arcades/layout - 2 Full.xml", "layouts/Arcades/layout - 0.xml"
-      copy "layouts/Arcades/layout - 0 No Logo.xml", "layouts/Arcades/layout - 2.xml"
-      copy "layouts/Arcades/layoutplaylistsH.xml", "layouts/Arcades/layoutplaylists.xml"
-      set_value "controls.conf", HORIZONAL_CONF
+      apply_theme layout: "layouts/Arcades/layout - 2 Full.xml"
     when "lights"
-      copy "layouts/Arcades/layout - 2 Lights.xml", "layouts/Arcades/layout - 0.xml"
-      copy "layouts/Arcades/layout - 0 No Logo.xml", "layouts/Arcades/layout - 2.xml"
-      copy "layouts/Arcades/layoutplaylistsH.xml", "layouts/Arcades/layoutplaylists.xml"
-      set_value "controls.conf", HORIZONAL_CONF
+      apply_theme layout: "layouts/Arcades/layout - 2 Lights.xml"
     when "marquee"
-      copy "layouts/Arcades/layout - 2 Marquee.xml", "layouts/Arcades/layout - 0.xml"
-      copy "layouts/Arcades/layout - 0 No Logo.xml", "layouts/Arcades/layout - 2.xml"
-      copy "layouts/Arcades/layoutplaylistsV.xml", "layouts/Arcades/layoutplaylists.xml"
-      set_value "controls.conf", VERTICAL_CONF
+      apply_theme layout: "layouts/Arcades/layout - 2 Marquee.xml", vertical: true
+    when "marquees"
+      apply_theme layout: "layouts/Arcades/layout - 2 Marquees.xml", vertical: true
     when "reflection"
-      copy "layouts/Arcades/layout - 2 Reflection.xml", "layouts/Arcades/layout - 0.xml"
-      copy "layouts/Arcades/layout - 0 No Logo.xml", "layouts/Arcades/layout - 2.xml"
-      copy "layouts/Arcades/layoutplaylistsH.xml", "layouts/Arcades/layoutplaylists.xml"
-      set_value "controls.conf", HORIZONAL_CONF
+      apply_theme layout: "layouts/Arcades/layout - 2 Reflection.xml"
     when "spin"
-      copy "layouts/Arcades/layout - 2 FullSpin.xml", "layouts/Arcades/layout - 0.xml"
-      copy "layouts/Arcades/layout - 0 No Logo.xml", "layouts/Arcades/layout - 2.xml"
-      copy "layouts/Arcades/layoutplaylistsH.xml", "layouts/Arcades/layoutplaylists.xml"
-      set_value "controls.conf", HORIZONAL_CONF
+      apply_theme layout: "layouts/Arcades/layout - 2 FullSpin.xml"
     when "vertical"
-      copy "layouts/Arcades/layout - 2 Vert.xml", "layouts/Arcades/layout - 0.xml"
-      copy "layouts/Arcades/layout - 0 No Logo.xml", "layouts/Arcades/layout - 2.xml"
-      copy "layouts/Arcades/layoutplaylistsV.xml", "layouts/Arcades/layoutplaylists.xml"
-      set_value "controls.conf", VERTICAL_CONF
+      apply_theme layout: "layouts/Arcades/layout - 2 Vert.xml", vertical: true
     when "wall"
-      copy "layouts/Arcades/layout - 2 Cabs.xml", "layouts/Arcades/layout - 0.xml"
-      copy "layouts/Arcades/layout - 0 No Logo.xml", "layouts/Arcades/layout - 2.xml"
-      copy "layouts/Arcades/layoutplaylistsH.xml", "layouts/Arcades/layoutplaylists.xml"
-      set_value "controls.conf", HORIZONAL_CONF
+      apply_theme layout: "layouts/Arcades/layout - 2 Cabs.xml"
     when "wheel"
-      copy "layouts/Arcades/layout - 2 Wheel.xml", "layouts/Arcades/layout - 0.xml"
-      copy "layouts/Arcades/layout - 0 No Logo.xml", "layouts/Arcades/layout - 2.xml"
-      copy "layouts/Arcades/layoutplaylistsV.xml", "layouts/Arcades/layoutplaylists.xml"
-      set_value "controls.conf", VERTICAL_CONF
+      apply_theme layout: "layouts/Arcades/layout - 2 Wheel.xml", vertical: true
     when "wheeler"
-      copy "layouts/Arcades/layout - 2 Wheeler.xml", "layouts/Arcades/layout - 0.xml"
-      copy "layouts/Arcades/layout - 0 No Logo.xml", "layouts/Arcades/layout - 2.xml"
-      copy "layouts/Arcades/layoutplaylistsV.xml", "layouts/Arcades/layoutplaylists.xml"
-      set_value "controls.conf", VERTICAL_CONF
+      apply_theme layout: "layouts/Arcades/layout - 2 Wheeler.xml", vertical: true
     when "crossfade"
-      copy "layouts/Arcades/layout - 2 Crossfade.xml", "layouts/Arcades/layout - 0.xml"
-      copy "layouts/Arcades/layout - 0 No Logo.xml", "layouts/Arcades/layout - 2.xml"
-      copy "layouts/Arcades/layoutplaylistsH.xml", "layouts/Arcades/layoutplaylists.xml"
-      set_value "controls.conf", HORIZONAL_CONF
+      apply_theme layout: "layouts/Arcades/layout - 2 Crossfade.xml"
     when "crossfade_gameplay"
-      copy "layouts/Arcades/layout - 2 Crossfade Gameplay.xml", "layouts/Arcades/layout - 0.xml"
-      copy "layouts/Arcades/layout - 0 No Logo.xml", "layouts/Arcades/layout - 2.xml"
-      copy "layouts/Arcades/layoutplaylistsH.xml", "layouts/Arcades/layoutplaylists.xml"
-      set_value "controls.conf", HORIZONAL_CONF
+      apply_theme layout: "layouts/Arcades/layout - 2 Crossfade Gameplay.xml"
+    when "deluxe_80s"
+      apply_theme layout: "layouts/Arcades/layout - 2 Deluxe 80s.xml"
+    when "deluxe_90s"
+      apply_theme layout: "layouts/Arcades/layout - 2 Deluxe 90s.xml"
+    when "deluxe_arcade"
+      apply_theme layout: "layouts/Arcades/layout - 2 Deluxe Lounge.xml"
+    when "deluxe_cabinet"
+      apply_theme layout: "layouts/Arcades/layout - 2 Deluxe Smoke.xml"
+    when "deluxe_evolution"
+      apply_theme layout: "layouts/Arcades/layout - 2 Deluxe Evo.xml", vertical: true
+    when "deluxe_marquee"
+      apply_theme layout: "layouts/Arcades/layout - 2 Deluxe Marquees Right.xml", vertical: true
+    when "deluxe_poster"
+      apply_theme layout: "layouts/Arcades/layout - 2 Deluxe Poster.xml"
+    when "deluxe_slider"
+      apply_theme layout: "layouts/Arcades/layout - 2 Deluxe Slider.xml", vertical: true
+    when "deluxe_spin"
+      apply_theme layout: "layouts/Arcades/layout - 2 Deluxe Spin.xml"
+    when "deluxe_spinner"
+      apply_theme layout: "layouts/Arcades/layout - 2 Deluxe Spinner.xml", vertical: true
+    when "deluxe_wheeler"
+      apply_theme layout: "layouts/Arcades/layout - 2 Deluxe Wall.xml", vertical: true
+    when "quick_spin_cabinet"
+      apply_theme layout: "layouts/Arcades/layout - 2 qsCab.xml", vertical: true,
+        settings1_source: "autochanger/settings1xxty.conf", preserve_settings0: true
+    when "quick_spin_evolution"
+      apply_theme layout: "layouts/Arcades/layout - 2 qsEvo.xml", vertical: true,
+        settings1_source: "autochanger/settings1xxty.conf", preserve_settings0: true
+    when "quick_spin_wheeler"
+      apply_theme layout: "layouts/Arcades/layout - 2 qsWheeler.xml", vertical: true,
+        settings1_source: "autochanger/settings1xxty.conf", preserve_settings0: true
+    end
+  end
+
+  def apply_theme(layout:, logo: "layouts/Arcades/layout - 0 No Logo.xml", vertical: false, settings1_source: nil, preserve_settings0: false)
+    copy layout, "layouts/Arcades/layout - 0.xml"
+    copy logo, "layouts/Arcades/layout - 2.xml"
+    copy "layouts/Arcades/layoutplaylists#{vertical ? "V" : "H"}.xml", "layouts/Arcades/layoutplaylists.xml"
+    set_value "controls.conf", vertical ? VERTICAL_CONF : HORIZONAL_CONF
+
+    if preserve_settings0
+      remove "settings0.conf"
+      copy "settings1.conf", "settings0.conf" if exist?("settings1.conf")
+    end
+
+    if settings1_source
+      copy settings1_source, "settings1.conf"
+    else
+      remove "settings1.conf"
     end
   end
 
@@ -127,6 +159,10 @@ class MainScreenTheme < ConfigBase
     return "arcade_logo" if files_equal?(layout0, "layouts/Arcades/layout - 2 Attract.xml") &&
       files_equal?(layout2, "layouts/Arcades/layout - 0 Logo.xml")
 
+    return "alaska" if files_equal?(layout0, "layouts/Arcades/layout - 2 Alaska.xml")
+    return "aura" if files_equal?(layout0, "layouts/Arcades/layout - 2 Aura.xml")
+    return "cabinet" if files_equal?(layout0, "layouts/Arcades/layout - 2 Cab.xml")
+
     return "gameplay" if files_equal?(layout0, "layouts/Arcades/layout - 2 Gameplay.xml") &&
       files_equal?(layout2, "layouts/Arcades/layout - 0 No Logo.xml")
 
@@ -136,6 +172,7 @@ class MainScreenTheme < ConfigBase
     return "legends" if files_equal?(layout0, "layouts/Arcades/layout - 2 Full.xml")
     return "lights" if files_equal?(layout0, "layouts/Arcades/layout - 2 Lights.xml")
     return "marquee" if files_equal?(layout0, "layouts/Arcades/layout - 2 Marquee.xml")
+    return "marquees" if files_equal?(layout0, "layouts/Arcades/layout - 2 Marquees.xml")
     return "reflection" if files_equal?(layout0, "layouts/Arcades/layout - 2 Reflection.xml")
     return "spin" if files_equal?(layout0, "layouts/Arcades/layout - 2 FullSpin.xml")
     return "vertical" if files_equal?(layout0, "layouts/Arcades/layout - 2 Vert.xml")
@@ -144,6 +181,20 @@ class MainScreenTheme < ConfigBase
     return "wheeler" if files_equal?(layout0, "layouts/Arcades/layout - 2 Wheeler.xml")
     return "crossfade" if files_equal?(layout0, "layouts/Arcades/layout - 2 Crossfade.xml")
     return "crossfade_gameplay" if files_equal?(layout0, "layouts/Arcades/layout - 2 Crossfade Gameplay.xml")
+    return "deluxe_80s" if files_equal?(layout0, "layouts/Arcades/layout - 2 Deluxe 80s.xml")
+    return "deluxe_90s" if files_equal?(layout0, "layouts/Arcades/layout - 2 Deluxe 90s.xml")
+    return "deluxe_arcade" if files_equal?(layout0, "layouts/Arcades/layout - 2 Deluxe Lounge.xml")
+    return "deluxe_cabinet" if files_equal?(layout0, "layouts/Arcades/layout - 2 Deluxe Smoke.xml")
+    return "deluxe_evolution" if files_equal?(layout0, "layouts/Arcades/layout - 2 Deluxe Evo.xml")
+    return "deluxe_marquee" if files_equal?(layout0, "layouts/Arcades/layout - 2 Deluxe Marquees Right.xml")
+    return "deluxe_poster" if files_equal?(layout0, "layouts/Arcades/layout - 2 Deluxe Poster.xml")
+    return "deluxe_slider" if files_equal?(layout0, "layouts/Arcades/layout - 2 Deluxe Slider.xml")
+    return "deluxe_spin" if files_equal?(layout0, "layouts/Arcades/layout - 2 Deluxe Spin.xml")
+    return "deluxe_spinner" if files_equal?(layout0, "layouts/Arcades/layout - 2 Deluxe Spinner.xml")
+    return "deluxe_wheeler" if files_equal?(layout0, "layouts/Arcades/layout - 2 Deluxe Wall.xml")
+    return "quick_spin_cabinet" if files_equal?(layout0, "layouts/Arcades/layout - 2 qsCab.xml")
+    return "quick_spin_evolution" if files_equal?(layout0, "layouts/Arcades/layout - 2 qsEvo.xml")
+    return "quick_spin_wheeler" if files_equal?(layout0, "layouts/Arcades/layout - 2 qsWheeler.xml")
 
     "unknown"
   end
